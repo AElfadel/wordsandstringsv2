@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "../components/ui/Toaster";
 
 import { ClerkProvider } from "@clerk/nextjs";
 
@@ -25,7 +26,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <ClerkProvider>
-        <body className={poppins.variable}>{children}</body>
+        <body className={poppins.variable}>
+          <Toaster />
+          {children}
+        </body>
       </ClerkProvider>
     </html>
   );

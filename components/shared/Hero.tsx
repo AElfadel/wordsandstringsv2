@@ -13,7 +13,11 @@ function Hero() {
         <p className="">
           Register to perfom in our events or get your tickets to attend
         </p>
-        <Button asChild className="button w-full sm:w-fit">
+        <Button
+          asChild
+          className="button w-full text-white sm:w-fit"
+          variant="default"
+        >
           <Link href="#events">NEXT EVENT ON</Link>
         </Button>
       </div>

@@ -1,7 +1,4 @@
 import Image from "next/image";
-import { Button } from "../ui/Button";
-import { Input } from "../ui/Input";
-import { Label } from "../ui/Label";
 import {
   Sheet,
   SheetClose,
@@ -14,15 +11,14 @@ import {
 } from "../ui/Sheet";
 import { Separator } from "../ui/Seperator";
 import NavItems from "./NavItems";
-import { usePathname } from "next/navigation";
 
 function MobileNav() {
   return (
-    <nav className="md:hidden">
+    <nav className="md:hidden mt-1 ">
       <Sheet>
         <SheetTrigger className=" align-middle">
           <Image
-            src="assets/icons/menu.svg"
+            src="/assets/icons/menu.svg"
             alt="menu"
             width={24}
             height={24}

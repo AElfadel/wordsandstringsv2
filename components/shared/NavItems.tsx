@@ -2,11 +2,12 @@
 
 import { navbarLinks } from "@/constants";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 function NavItems() {
   const pathname = usePathname();
+  const router = useRouter();
 
   return (
     <ul className=" md:flex-between flex w-full flex-col items-start gap-5 md:flex-row text-neutral-600">

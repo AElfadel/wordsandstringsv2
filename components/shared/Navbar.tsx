@@ -32,16 +32,16 @@ function Navbar() {
 
         <div className="flex justify-end  mt-3 gap-3 text-center">
           <SignedOut>
-            <Button asChild className="rounded-full" size="lg">
+            <Button asChild className="rounded-full" size="lg" variant="ghost">
               <Link href="/sign-in">Login</Link>
             </Button>
           </SignedOut>
           <div className=" justify-center flex gap-3 ">
             <SignedIn>
               <UserButton afterSignOutUrl="/" />
-              <MobileNav />
               <div />
             </SignedIn>
+            <MobileNav />
           </div>
         </div>
       </div>
