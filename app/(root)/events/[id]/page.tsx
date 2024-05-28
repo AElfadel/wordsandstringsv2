@@ -8,9 +8,20 @@ import Image from "next/image";
 import { Icons } from "@/components/ui/Icons";
 import Collection from "@/components/shared/Collection";
 import CheckoutButton from "@/components/shared/CheckoutButton";
+import { checkUserAlreadyHasTicket } from "@/lib/actions/order.actions";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 
 async function page({ params: { id }, searchParams }: SearchParamProps) {
   const event = await getEventById(id);
+
+  const { sessionClaims } = auth();
+
+  const userId = sessionClaims?.userId as string;
+
+  const ticketCheck = await checkUserAlreadyHasTicket({
+    eventId: event._id,
+    userId,
+  });
 
   const relatedEvents = await getRelatedEventsByCategory({
     categoryId: event.category._id,
@@ -44,17 +55,32 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
                   </p>
                 </div>
 
-                <p className="p-medium-18 ml-2 mt-2 sm:mt-0">
+                {/* <p className="p-medium-18 ml-2 mt-2 sm:mt-0">
                   by{" "}
                   <span className="text-primary-500">
                     {event.organizer.firstName} {event.organizer.lastName}
                   </span>
-                </p>
+                </p> */}
               </div>
             </div>
 
-            {/* BOOK TICKET*/}
-            <CheckoutButton />
+            {/* EVENT DESCRIPTION*/}
+
+            <div className="flex flex-col gap-2">
+              <p className="p-bold-20 text-grey-600">Event Description:</p>
+              <p className="p-medium-16 lg:p-regular-18">{event.description}</p>
+              <div className="flex gap-2 md:gap-3">
+                <div>
+                  <Icons.link fill="#25c0fb" width={24} height={24} />
+                </div>
+                <a
+                  className="p-medium-16 lg:p-regular-18 truncate text-primary-500 underline"
+                  href={event.url}
+                >
+                  {event.url}
+                </a>
+              </div>
+            </div>
 
             <div className="flex flex-col gap-5">
               <div className="flex gap-2 md:gap-3">
@@ -77,22 +103,12 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
                 <p className="p-medium-16 lg:p-regular-20">{event.location}</p>
               </div>
             </div>
-
-            <div className="flex flex-col gap-2">
-              <p className="p-bold-20 text-grey-600">Event Description:</p>
-              <p className="p-medium-16 lg:p-regular-18">{event.description}</p>
-              <div className="flex gap-2 md:gap-3">
-                <div>
-                  <Icons.link fill="#25c0fb" width={24} height={24} />
-                </div>
-                <a
-                  className="p-medium-16 lg:p-regular-18 truncate text-primary-500 underline"
-                  href={event.url}
-                >
-                  {event.url}
-                </a>
-              </div>
-            </div>
+            {/* PUT CHECKOUT HERE!*/}
+            <CheckoutButton
+              event={event}
+              userId={userId}
+              ticketCheck={ticketCheck}
+            />
           </div>
         </div>
       </section>
@@ -116,5 +132,3 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
 }
 
 export default page;
-
-//stopped at 3:13:48

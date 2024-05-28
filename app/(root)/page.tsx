@@ -10,8 +10,6 @@ export default async function Home() {
     limit: 6,
   });
 
-  console.log(events);
-
   return (
     <section className=" bg-gradient-to-bl  from-neutral-600 to-black text-neutral-100 bg-contain py-5 md:py-10">
       <Hero />

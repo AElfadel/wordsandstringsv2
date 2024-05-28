@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "../components/ui/Toaster";
-
-import { ClerkProvider } from "@clerk/nextjs";
+import Provider from "@/lib/Provider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,12 +24,12 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ClerkProvider>
-        <body className={poppins.variable}>
+      <body className={poppins.variable}>
+        <Provider>
           <Toaster />
           {children}
-        </body>
-      </ClerkProvider>
+        </Provider>
+      </body>
     </html>
   );
 }

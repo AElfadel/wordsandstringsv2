@@ -17,12 +17,19 @@ function Card({ event, hasOrderLink, hidePrice }: CardProps) {
 
   const isEventCreator = userId === event.organizer._id.toString();
 
+  const eventFinished = new Date(event.endDateTime) < new Date();
+
   return (
     <div className="group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]">
       <Link
         href={`/events/${event._id}`}
-        style={{ backgroundImage: `url(${event.imageUrl})` }}
-        className="flex-center flex-grow bg-gray-50 bg-cover bg-center text-grey-500"
+        style={{
+          backgroundImage: `url(${event.imageUrl})`,
+          filter: eventFinished ? "grayscale(100%)" : "none",
+        }}
+        className={`flex-center flex-grow bg-cover bg-center text-grey-500 ${
+          eventFinished ? "bg-gray-50" : ""
+        }`}
       />
       {/*IS EVENT CREATOR  ..?*/}
       {isEventCreator && !hidePrice && (
@@ -37,7 +44,11 @@ function Card({ event, hasOrderLink, hidePrice }: CardProps) {
       <div className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4">
         {!hidePrice && (
           <div className="flex gap-2">
-            <span className="p-semibold-14 w-fit rounded-full bg-green-100 px-4 py-1 text-green-600 line-clamp-1">
+            <span
+              className={`p-semibold-14 w-fit rounded-full bg-green-100 px-4 py-1  line-clamp-1 ${
+                eventFinished ? "bg-gray-100 text-black" : "text-green-600"
+              }`}
+            >
               {event.isFree ? "FREE" : `${event.price} QR`}
             </span>
             <p className="p-semibold-14 w-min rounded-full bg-grey-500/10 px-4 py-1 text-grey-500 line-clamp-1">
@@ -46,9 +57,21 @@ function Card({ event, hasOrderLink, hidePrice }: CardProps) {
           </div>
         )}
 
-        <p className="p-medium-16 p-medium-18 text-gray-500">
+        <p
+          className={`p-medium-16 p-medium-18 text-gray-500 
+          ${eventFinished ? "line-through text-gray-300" : null}
+        `}
+        >
           {formatDateTime(event.startDateTime).dateTime}
         </p>
+        {/* EVENT Finished */}
+
+        {eventFinished ? (
+          <p className="p-medium-16 p-medium-18 text-red-800 ">
+            Event Finished 👏
+          </p>
+        ) : null}
+
         <Link href={`/events/${event._id}`}>
           <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">
             {event.title}
