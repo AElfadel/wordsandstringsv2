@@ -1,13 +1,23 @@
 import Hero from "../../components/shared/Hero";
 import Collection from "@/components/shared/Collection";
-import { getAllEvents } from "@/lib/actions/event.actions";
+import {
+  getActiveEvents,
+  getFinishedEvents,
+} from "@/lib/actions/event.actions";
 
 export default async function Home() {
-  const events = await getAllEvents({
+  const activeEvents = await getActiveEvents({
     query: "",
     page: 1,
     category: "",
     limit: 6,
+  });
+
+  const finishedEvents = await getFinishedEvents({
+    query: "",
+    page: 1,
+    category: "",
+    limit: 10,
   });
 
   return (
@@ -25,7 +35,23 @@ export default async function Home() {
         </div>
 
         <Collection
-          data={events?.data}
+          data={activeEvents?.data}
+          emptyTitle="No Events Found"
+          emptyStateSubtext="Come back later"
+          collectionType="All_Events"
+          limit={6}
+          page={1}
+          totalPages={2}
+        />
+      </section>
+      <section
+        id="events"
+        className="wrapper my-8 flex flex-col gap-8 md:gap-12"
+      >
+        <h2 className="font-semibold text-xl">Previous chapters</h2>
+
+        <Collection
+          data={finishedEvents?.data}
           emptyTitle="No Events Found"
           emptyStateSubtext="Come back later"
           collectionType="All_Events"

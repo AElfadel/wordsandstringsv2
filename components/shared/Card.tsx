@@ -60,13 +60,15 @@ function Card({ event, hasOrderLink, hidePrice }: CardProps) {
           </p>
         </div>
 
-        <p
-          className={`p-medium-16 p-medium-18 text-gray-500 
-          ${eventFinished ? "line-through text-gray-300" : null}
-        `}
-        >
-          {formatDateTime(event.startDateTime).dateTime}
-        </p>
+        {eventFinished ? null : (
+          <p
+            className="p-medium-16 p-medium-18 text-gray-500 
+     
+   "
+          >
+            {formatDateTime(event.startDateTime).dateTime}
+          </p>
+        )}
 
         <Link href={`/events/${event._id}`}>
           <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">

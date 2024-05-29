@@ -59,11 +59,15 @@ console.log(error)
 }
 
 
-export async function getAllEvents({query, limit = 6, page, category}: GetAllEventsParams) {
+export async function getActiveEvents({query, limit = 6, page, category}: GetAllEventsParams) {
     try {
         await connectToDatabase()
 
-        const conditions = {}
+        const todaysDate = new Date()
+
+        const conditions = {
+            endDateTime: { $gte: todaysDate}
+        }
 
         const eventsQuery =  Event.find(conditions).sort({createdAt: 'desc'}).skip(0).limit(limit)
 
@@ -80,6 +84,34 @@ export async function getAllEvents({query, limit = 6, page, category}: GetAllEve
         console.log(error)
     }
 }
+
+
+export async function getFinishedEvents({query, limit = 6, page, category}: GetAllEventsParams) {
+    try {
+        await connectToDatabase()
+
+        const todaysDate = new Date()
+
+        const conditions = {
+            endDateTime: { $lt: todaysDate}
+        }
+
+        const eventsQuery =  Event.find(conditions).sort({createdAt: 'desc'}).skip(0).limit(limit)
+
+        const events = await populateEvent(eventsQuery)
+        
+        const eventsCount = await Event.countDocuments(conditions)
+
+        return {
+            data: JSON.parse(JSON.stringify(events)),
+            totalPages: Math.ceil(eventsCount / limit)
+        }
+
+    } catch(error) {
+        console.log(error)
+    }
+}
+
 
 
 

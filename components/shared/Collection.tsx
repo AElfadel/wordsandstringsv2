@@ -26,6 +26,7 @@ function Collection({
   totalPages,
 }: CollectionProps) {
   return (
+    //  TICKET OWNER VIEW
     <>
       {data.length > 0 ? (
         <div className="flex flex-col items-center gap-10">
@@ -40,6 +41,7 @@ function Collection({
               })}
             </ul>
           ) : (
+            //  Organizer and Guest View
             <ul className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10">
               {data.map((event) => {
                 const hasOrderLink = collectionType === "Events_Organized";
