@@ -6,19 +6,21 @@ import { Button } from "../ui/Button";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import NavItems from "./NavItems";
 import MobileNav from "./MobileNav";
+import { Icons } from "../ui/Icons";
 
 function Navbar() {
   return (
     <div className=" w-full bg-neutral-100 px-2 py-2">
       <div className="flex    justify-between px-3">
         <Link className="flex  " href="/">
-          <Image
+          <Icons.WordsAndString />
+          {/* <Image
             src="/was_logo.png"
             width="40"
             height="40"
             className=" object-contain"
             alt="Words and strings logo"
-          />
+          /> */}
           <p className="md:flex justify-center items-center text-sm px-1 mt-2 -ml-2 text-black   hidden">
             Words & Strings
           </p>

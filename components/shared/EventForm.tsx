@@ -21,6 +21,7 @@ import Dropdown from "./Dropdown";
 import { Textarea } from "../ui/Textarea";
 import FileUploader from "./FileUploader";
 import Image from "next/image";
+import { Icons } from "../ui/Icons";
 
 import { useUploadThing } from "@/lib/uploadthing";
 
@@ -134,7 +135,7 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
             control={form.control}
             name="title"
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem className="w-full bg-gray-50 rounded-full">
                 <FormControl>
                   <Input
                     placeholder="Event title"
@@ -217,12 +218,7 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                    <Image
-                      src="/assets/icons/location-grey.svg"
-                      alt="calender"
-                      width={24}
-                      height={24}
-                    />
+                    <Icons.locationGray width={40} />
                     <Input
                       placeholder="Event Location or Online"
                       {...field}
@@ -246,14 +242,8 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                    <Image
-                      src="/assets/icons/calendar.svg"
-                      alt="location"
-                      width={24}
-                      height={24}
-                      className="filter-gray"
-                    />
-                    <p className="ml-3 whitespace-nowrap text-gray-600">
+                    <Icons.calendar height={49} fill="#757575" />
+                    <p className="ml-3 whitespace-nowrap text-gray-500">
                       Start Date and Time:
                     </p>
                     {/*Date picker*/}
@@ -281,14 +271,8 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                    <Image
-                      src="/assets/icons/calendar.svg"
-                      alt="location"
-                      width={24}
-                      height={24}
-                      className="filter-gray"
-                    />
-                    <p className="ml-3 whitespace-nowrap text-gray-600">
+                    <Icons.calendar height={49} fill="#757575" />
+                    <p className="ml-3 whitespace-nowrap text-gray-500">
                       End Date and Time:
                     </p>
                     {/*Date picker*/}
@@ -318,18 +302,12 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                    <Image
-                      src="/assets/icons/dollar.svg"
-                      alt="price"
-                      width={24}
-                      height={24}
-                      className="filter-grey"
-                    />
+                    <Icons.dollar fill="#757575" width="48" />
                     <Input
                       type="number"
                       placeholder="Ticket Price in QR"
                       {...field}
-                      className="p-regular-16 border-0 bg-grey-50 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="p-regular-16 border-0  outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-gray-50"
                     />
 
                     {/* Free ticket */}
@@ -373,17 +351,12 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Image
-                      src="/assets/icons/link.svg"
-                      alt="link"
-                      width={24}
-                      height={24}
-                    />
+                    <Icons.link />
 
                     <Input
                       placeholder="URL"
                       {...field}
-                      className="input-field"
+                      className="input-field bg-transparent"
                     />
                   </div>
                 </FormControl>
