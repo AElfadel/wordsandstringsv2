@@ -7,9 +7,19 @@ function NavItems() {
   const pathname = usePathname();
   const router = useRouter();
 
+  const navbarLinks = [
+    {
+      route: "/",
+      label: "Home",
+    },
+
+    { route: "/about", label: "About Us" },
+    { route: "/profile", label: "My Tickets" },
+  ];
+
   return (
     <ul className=" md:flex-between flex w-full flex-col items-start gap-5 md:flex-row text-neutral-600">
-      {/* {navbarLinks.map((link) => {
+      {navbarLinks.map((link) => {
         const isActive = pathname === link.route;
         return (
           <li
@@ -21,7 +31,7 @@ function NavItems() {
             <Link href={link.route}>{link.label}</Link>
           </li>
         );
-      })} */}
+      })}
     </ul>
   );
 }

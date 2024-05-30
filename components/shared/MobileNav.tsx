@@ -11,8 +11,6 @@ import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 
 export default function MobileNav() {
-  const { sessionClaims } = auth();
-
   return (
     <nav className="md:hidden mt-1 ">
       <Sheet>
@@ -34,6 +32,11 @@ export default function MobileNav() {
                 <li className="hover:text-wasprimary">
                   <Link href="/profile">
                     <SheetClose>My Tickets</SheetClose>
+                  </Link>
+                </li>
+                <li className="hover:text-wasprimary">
+                  <Link href="/about">
+                    <SheetClose>About Us</SheetClose>
                   </Link>
                 </li>
               </ul>
