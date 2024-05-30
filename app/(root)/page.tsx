@@ -30,9 +30,9 @@ export default async function Home() {
         <h2 className="font-semibold text-xl">
           Home of poetry <br /> in Qatar since 2014
         </h2>
-        <div className="flex w-full gap-5 md:flex-row">
+        {/* <div className="flex w-full gap-5 md:flex-row">
           Search Cateogry Filter
-        </div>
+        </div> */}
 
         <Collection
           data={activeEvents?.data}

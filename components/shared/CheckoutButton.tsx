@@ -6,8 +6,6 @@ import React from "react";
 import { Button } from "../ui/Button";
 import { IEvent } from "@/lib/mongodb/database/models/event.model";
 import { createOrder } from "@/lib/actions/order.actions";
-import { toast } from "react-hot-toast";
-import { title } from "process";
 import { useToast } from "../ui/Use-Toast";
 import { useRouter } from "next/navigation";
 

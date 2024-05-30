@@ -1,9 +1,7 @@
 "use client";
 
-import { navbarLinks } from "@/constants";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
 
 function NavItems() {
   const pathname = usePathname();
@@ -11,7 +9,7 @@ function NavItems() {
 
   return (
     <ul className=" md:flex-between flex w-full flex-col items-start gap-5 md:flex-row text-neutral-600">
-      {navbarLinks.map((link) => {
+      {/* {navbarLinks.map((link) => {
         const isActive = pathname === link.route;
         return (
           <li
@@ -23,7 +21,7 @@ function NavItems() {
             <Link href={link.route}>{link.label}</Link>
           </li>
         );
-      })}
+      })} */}
     </ul>
   );
 }

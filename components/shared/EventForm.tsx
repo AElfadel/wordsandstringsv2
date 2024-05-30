@@ -302,7 +302,7 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                    <Icons.dollar fill="#757575" width="48" />
+                    <Icons.dollar fill="#757575" width={48} />
                     <Input
                       type="number"
                       placeholder="Ticket Price in QR"

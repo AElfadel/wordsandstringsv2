@@ -8,7 +8,6 @@ import {
   checkUserAlreadyHasTicket,
   createOrder,
 } from "@/lib/actions/order.actions";
-import { useQuery } from "@tanstack/react-query";
 
 type CheckOutClientProps = {
   event: IEvent;
