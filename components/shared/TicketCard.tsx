@@ -6,6 +6,7 @@ import { formatDateTime } from "@/lib/utils";
 import TicketInformation from "./TicketInformation";
 import { auth } from "@clerk/nextjs/server";
 import { Icons } from "../ui/Icons";
+import { getOrder } from "@/lib/actions/order.actions";
 
 async function TicketCard({ event }: { event: IEvent }) {
   const { sessionClaims } = auth();
@@ -14,10 +15,14 @@ async function TicketCard({ event }: { event: IEvent }) {
 
   const eventFinished = new Date(event.endDateTime) < new Date();
 
+  const eventDay =
+    new Date(event.startDateTime).getDate() === new Date().getDate();
+
+  const order = await getOrder({ userId, eventId: event._id });
+
   return (
     <div className="group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]">
-      <Link
-        href={`/events/${event._id}`}
+      <div
         style={{
           backgroundImage: `url(${event.imageUrl})`,
           filter: eventFinished ? "grayscale(100%)" : "none",
@@ -27,17 +32,14 @@ async function TicketCard({ event }: { event: IEvent }) {
         }`}
       />
 
-      <div className=" absolute right-2 top-2 flex flex-col gap-4 rounded-xl bg-white p-3 shadow-sm transition-all">
-        <TicketDeleteConfirmation eventId={event._id} />
-      </div>
-
       <div className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4">
         <p
-          className={`p-medium-16 p-medium-18 text-gray-500 
+          className={` text-black font-mono  font-bold
       ${eventFinished ? "line-through text-gray-300" : null}
     `}
         >
-          {formatDateTime(event.startDateTime).dateTime}
+          {eventDay ? <p>TODAY!</p> : null}
+          {formatDateTime(event.startDateTime).dateOnly}
         </p>
 
         {/* EVENT Finished */}
@@ -52,20 +54,17 @@ async function TicketCard({ event }: { event: IEvent }) {
           event={event}
           userId={userId}
           eventFinished={eventFinished}
+          order={order}
         />
 
-        <div className="flex-between w-full ">
-          <p className="p-medium-14 md:p-medium-16 text-gray-600">
-            {event.organizer.firstName} <span>& </span>
-            {event.organizer.lastName}
-          </p>
+        <div className="">
+          {/* <Link href={`/orders?eventId=${event._id}`}> */}
+          <div className="text-red-500 flex justify-end gap-2 text-sm font-mono text-right w-full">
+            <TicketDeleteConfirmation eventId={event._id} userId={userId} />
 
-          <Link
-            href={`/orders?eventId=${event._id}`}
-            className="text-primary-500 "
-          >
-            <Icons.arrow fill="#101010" width={10} height={10} />
-          </Link>
+            <Icons.delete fill="#FF5050" width={20} height={20} />
+          </div>
+          {/* </Link> */}
         </div>
       </div>
     </div>

@@ -86,3 +86,45 @@ export async function getOrdersByUser({userId, limit=3, page}: GetOrdersByUserPa
         console.log(error)
     }
 }
+
+
+export async function deleteOrder({eventId, userId} : {eventId: string, userId: string}) {
+    try { 
+        await connectToDatabase()
+
+        const conditions = {buyer:userId, event:eventId }
+
+        const deleteOrder = await Order.findOneAndDelete(conditions)
+
+        if (!deleteOrder) return new Error("deleted order not found")
+
+    } catch(error) {
+        console.log(error)
+    }
+
+}
+
+
+
+export async function getOrder({eventId, userId} : {eventId: string, userId: string}) {
+    try {
+await connectToDatabase()
+
+const conditions = {buyer: userId, event: eventId}
+
+const userOrder = await Order.findOne(conditions).populate({
+    path: 'buyer',
+    model: User,
+    select: "_id firstName lastName"
+})
+
+
+if (!userOrder) return new Error("Order not founds")
+
+return JSON.parse(JSON.stringify(userOrder))
+
+
+    } catch(error) {
+        console.log(error)
+    }
+}

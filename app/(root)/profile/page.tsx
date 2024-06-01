@@ -46,6 +46,7 @@ export default async function ProfilePage({ searchParams }: SearchParamProps) {
           page={ordersPage}
           urlParamName="ordersPage"
           totalPages={orders?.totalPages}
+          orders={orders?.data}
         />
       </section>
 

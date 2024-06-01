@@ -16,8 +16,15 @@ import { Icons } from "../ui/Icons";
 import { usePathname } from "next/navigation";
 import { useToast } from "../ui/Use-Toast";
 import { useRouter } from "next/navigation";
+import { deleteOrder } from "@/lib/actions/order.actions";
 
-function TicketDeleteConfirmation({ eventId }: { eventId: string }) {
+function TicketDeleteConfirmation({
+  eventId,
+  userId,
+}: {
+  eventId: string;
+  userId: string;
+}) {
   const pathname = usePathname();
   let [isPending, startTransition] = useTransition();
   const { toast } = useToast();
@@ -26,9 +33,7 @@ function TicketDeleteConfirmation({ eventId }: { eventId: string }) {
   return (
     <div>
       <AlertDialog>
-        <AlertDialogTrigger>
-          <Icons.delete fill="#FF5050" width={20} height={20} />
-        </AlertDialogTrigger>
+        <AlertDialogTrigger>Cancel My Ticket </AlertDialogTrigger>
         <AlertDialogContent className="bg-white">
           <AlertDialogHeader>
             <AlertDialogTitle>
@@ -45,13 +50,22 @@ function TicketDeleteConfirmation({ eventId }: { eventId: string }) {
             <AlertDialogAction
               className="bg-red-500"
               onClick={async function startTransition() {
-                await //Add delete Order function here!
-                console.log("Add order deletion here!");
-                toast({
-                  title: "Ticket cancelled successfully",
-                  variant: "destructive",
-                });
-                router.refresh();
+                try {
+                  await deleteOrder({ eventId, userId });
+                  toast({
+                    title: "Ticket cancelled successfully",
+                    description: "Thank you for letting us know in advance!",
+                    variant: "destructive",
+                  });
+                  router.refresh();
+                } catch (error) {
+                  toast({
+                    title: "An error occured",
+                    description:
+                      "Try again later and if error presists contact us at wordsandstrings@outlook.com",
+                    variant: "destructive",
+                  });
+                }
               }}
             >
               {isPending ? "Deleting..." : "Delete"}

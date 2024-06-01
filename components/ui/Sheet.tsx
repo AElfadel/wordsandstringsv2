@@ -4,7 +4,6 @@ import * as React from "react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { cva, type VariantProps } from "class-variance-authority";
 import { X } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 
 const Sheet = SheetPrimitive.Root;
@@ -60,6 +59,9 @@ const SheetContent = React.forwardRef<
   <SheetPortal>
     <SheetOverlay />
     <SheetPrimitive.Content
+      onOpenAutoFocus={(e: any) => {
+        e.preventDefault();
+      }}
       ref={ref}
       className={cn(sheetVariants({ side }), className)}
       {...props}

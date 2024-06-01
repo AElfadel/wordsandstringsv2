@@ -1,13 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/Button";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import NavItems from "./NavItems";
 import MobileNav from "./MobileNav";
 import { Icons } from "../ui/Icons";
-import { auth } from "@clerk/nextjs/server";
 
 function Navbar() {
   return (
