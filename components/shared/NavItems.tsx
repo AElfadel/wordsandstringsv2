@@ -1,11 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 function NavItems() {
   const pathname = usePathname();
-  const router = useRouter();
 
   const navbarLinks = [
     {
@@ -15,6 +14,7 @@ function NavItems() {
 
     { route: "/about", label: "About Us" },
     { route: "/profile", label: "My Tickets" },
+    { route: "events/create", label: "Create Event" },
   ];
 
   return (

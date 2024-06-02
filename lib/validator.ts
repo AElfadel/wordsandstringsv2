@@ -18,7 +18,11 @@ export const eventFormSchema = z.object({
     
     isFree: z.boolean(),
     
-    url:z.string().url(),
+    url: z.string().url(),
+
+    numberOfTickets: z.string(),
+
+    termsagreement: z.literal<boolean>(true, { errorMap: () => ({message: "Only events that  agree to our terms can be displayed on the website",}),}),
 
   });
 

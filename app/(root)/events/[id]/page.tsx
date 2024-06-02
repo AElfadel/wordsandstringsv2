@@ -10,6 +10,8 @@ import Collection from "@/components/shared/Collection";
 import CheckoutButton from "@/components/shared/CheckoutButton";
 import { checkUserAlreadyHasTicket } from "@/lib/actions/order.actions";
 import { auth, clerkClient } from "@clerk/nextjs/server";
+import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 
 async function page({ params: { id }, searchParams }: SearchParamProps) {
   const event = await getEventById(id);
@@ -103,12 +105,24 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
                 <p className="p-medium-16 lg:p-regular-20">{event.location}</p>
               </div>
             </div>
-            {/* PUT CHECKOUT HERE!*/}
-            <CheckoutButton
-              event={event}
-              userId={userId}
-              ticketCheck={ticketCheck}
-            />
+            <div className="flex gap-4">
+              {/* PUT CHECKOUT HERE!*/}
+              <CheckoutButton
+                event={event}
+                userId={userId}
+                ticketCheck={ticketCheck}
+              />
+
+              <Button
+                asChild
+                className="rounded-full p-7 text-white"
+                variant="secondary"
+              >
+                <Link href={`/events/${id}/perform`}>
+                  Register to perfom 🎤
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>

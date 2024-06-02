@@ -29,6 +29,8 @@ export type CreateUserParams = {
       price: string
       isFree: boolean
       url: string
+      numberOfTickets: string
+      termsagreement: boolean
     }
     path: string
   }
@@ -52,8 +54,9 @@ export type CreateUserParams = {
   }
   
   export type DeleteEventParams = {
-    eventId: string
-    path: string
+    eventId: string,
+    path: string,
+    imageUrl: string
   }
   
   export type GetAllEventsParams = {

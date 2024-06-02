@@ -126,16 +126,16 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-5"
+        className="flex flex-col gap-5 max-w-[1024px] lg:mx-auto"
       >
-        <div className="flex flex-col gap-5 md:flex-row">
+        <div className="flex flex-col gap-5  ">
           {/*1-  Title field */}
 
           <FormField
             control={form.control}
             name="title"
             render={({ field }) => (
-              <FormItem className="w-full bg-gray-50 rounded-full">
+              <FormItem className="w-full bg-gray-50 rounded-full h-[54px] mb-2">
                 <FormControl>
                   <Input
                     placeholder="Event title"
@@ -168,10 +168,8 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
             )}
           />
         </div>
-
         <div className="flex flex-col gap-5 md:flex-row">
           {/*3-  Description field */}
-
           <FormField
             control={form.control}
             name="description"
@@ -208,7 +206,6 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
             )}
           />
         </div>
-
         <div className="flex flex-col gap-5 md:flex-row">
           {/*5-  Location field */}
           <FormField
@@ -220,7 +217,7 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
                   <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
                     <Icons.locationGray width={40} />
                     <Input
-                      placeholder="Event Location or Online"
+                      placeholder="Event venue or Online"
                       {...field}
                       className="input-field"
                     />
@@ -232,14 +229,13 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
             )}
           />
         </div>
-
         <div className="flex flex-col gap-5 md:flex-row">
           {/*6-  Start date field */}
           <FormField
             control={form.control}
             name="startDateTime"
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem className="w-full ">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
                     <Icons.calendar height={49} fill="#757575" />
@@ -254,6 +250,7 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
                       timeInputLabel="Time:"
                       dateFormat="dd/MM/yyyy h:mm aa"
                       wrapperClassName="datePicker"
+                      className="text-right pr-12 text-gray-500 cursor-pointer"
                     />
                   </div>
                 </FormControl>
@@ -282,7 +279,8 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
                       showTimeSelect
                       timeInputLabel="Time:"
                       dateFormat="dd/MM/yyyy h:mm aa"
-                      wrapperClassName="datePicker"
+                      wrapperClassName="datePicker "
+                      className="text-right pr-12 text-gray-500 cursor-pointer"
                     />
                   </div>
                 </FormControl>
@@ -292,9 +290,32 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
             )}
           />
         </div>
-
+        {/* //DONE: */}
+        {/* TICKETS SECTION*/}
         <div className="flex flex-col gap-5 md:flex-row">
-          {/*8-  Price field */}
+          {/*8- Number of tickets field */}
+          <FormField
+            control={form.control}
+            name="numberOfTickets"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                    <Icons.tickets width={32} fill="#757575" />
+
+                    <Input
+                      placeholder="Number of tickets"
+                      {...field}
+                      className="input-field  justify-start bg-transparent"
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/*9-  Price field */}
           <FormField
             control={form.control}
             name="price"
@@ -344,6 +365,11 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
               </FormItem>
             )}
           />
+
+          {/* FURTHER INFO SECTION */}
+        </div>
+        <div className="flex flex-col gap-5 md:flex-row">
+          {/* event url*/}
           <FormField
             control={form.control}
             name="url"
@@ -351,12 +377,12 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Icons.link />
+                    <Icons.link width={32} />
 
                     <Input
-                      placeholder="URL"
+                      placeholder="Maps location link or online meeting link"
                       {...field}
-                      className="input-field bg-transparent"
+                      className="input-field  justify-start bg-transparent"
                     />
                   </div>
                 </FormControl>
@@ -365,26 +391,59 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
             )}
           />
         </div>
+        <div className="flex flex-col gap-5 md:flex-row">
+          {/* terms and agreement url*/}
 
+          <FormField
+            control={form.control}
+            name="termsagreement"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <div className="  h-[54px] w-full rounded-full bg-grey-50 px-4 flex items-center justify-between text-gray-500">
+                    <label
+                      htmlFor="termsagreement"
+                      className="whitespace-nowrap flex items-center gap-5 pr-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 "
+                    >
+                      <Icons.termsandcon height={28} fill="#757575" />
+                      <a
+                        className="  overflow-y-auto text-sm font-bold underline"
+                        href="/events/termsandconditions"
+                      >
+                        I accept the words and strings terms & conditions
+                      </a>
+                    </label>
+                    <Checkbox
+                      onCheckedChange={field.onChange}
+                      checked={field.value}
+                      id="termsagreement"
+                      className="mr-2 h-5 w-5 border-2 border-primary-500"
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <Button
           type="submit"
           size="lg"
           disabled={form.formState.isSubmitting}
           className="button col-span-2 w-full"
           onClick={() => {
-            // {
-            //   form.formState.errors
-            //     ? toast({
-            //         title: "Missing Information",
-            //         description:
-            //           "Please complete filling the fields with errors..",
-            //         variant: "destructive",
-            //       })
-            //     : null;
-            // }
+            form.formState.isSubmitting &&
+              toast({
+                title: "Uploading event data",
+                variant: "default",
+              });
           }}
         >
-          {form.formState.isSubmitting ? "Submitting.." : `${type} Event`}
+          {form.formState.isSubmitting ? (
+            <p className=" animate-pulse">Uploading..</p>
+          ) : (
+            `${type} Event`
+          )}
         </Button>
       </form>
     </Form>

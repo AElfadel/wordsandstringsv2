@@ -10,4 +10,7 @@
     price: '',
     isFree: false,
     url: '',
+    numberOfTickets: "",
+    termsagreement: false,
+
   }

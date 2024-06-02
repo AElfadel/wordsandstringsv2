@@ -6,6 +6,9 @@ import User from "../mongodb/database/models/user.model"
 import Event from "../mongodb/database/models/event.model"
 import Category from "../mongodb/database/models/category.model"
 import { revalidatePath } from "next/cache"
+import Order from "../mongodb/database/models/order.model"
+import { UTApi } from "uploadthing/server"
+import { utapi } from "@/app/api/uploadthing/route"
 
 
 
@@ -31,8 +34,12 @@ export async function createEvent({event, userId, path}: CreateEventParams) {
         const newEvent = await Event.create({
             ...event,
              category: event.categoryId,
-             organizer: userId
-            })
+             organizer: userId,
+             numberOfTickets: event.numberOfTickets,
+             termsagreement: event.termsagreement
+         });
+
+         console.log(newEvent)
 
             return JSON.parse(JSON.stringify(newEvent))
     } catch (error) {
@@ -115,12 +122,27 @@ export async function getFinishedEvents({query, limit = 6, page, category}: GetA
 
 
 
-export async function deleteEvent( {eventId, path} : DeleteEventParams) {
+export async function deleteEvent( {eventId, path, imageUrl} : DeleteEventParams) {
 
     try {
         await connectToDatabase()
 
-        const eventToDelete = await Event.findByIdAndDelete(eventId)
+        const conditions = {event: eventId}
+
+
+        await Order.deleteMany(conditions)
+
+        if (imageUrl) {
+            const fileName = new URL(imageUrl).pathname.split('/').pop();
+
+            if (fileName) {
+                // Use the file name for deletion
+                await utapi.deleteFiles(fileName);
+            }
+        }
+
+      const eventToDelete = await Event.findByIdAndDelete(eventId)
+
 
         if (eventToDelete) revalidatePath(path)
 
@@ -206,3 +228,5 @@ export async function getEventsByUser({ userId, page, limit =  6 }: GetEventsByU
         console.log(error)
     }
 }
+
+

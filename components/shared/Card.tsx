@@ -42,7 +42,7 @@ function Card({ event, hasOrderLink, hidePrice }: CardProps) {
           <Link href={`/events/${event._id}/update`}>
             <Icons.edit fill="#101010" height={20} width={20} />
           </Link>
-          <DeleteConfirmation eventId={event._id} />
+          <DeleteConfirmation eventId={event._id} imageUrl={event.imageUrl} />
         </div>
       )}
 

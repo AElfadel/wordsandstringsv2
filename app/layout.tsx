@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "Words & Strings",
   description: "Spoken Word & Poetry in Qatar",
   icons: {
-    icon: "/assets/images/was.ico",
+    icon: "/icon.png",
   },
 };
 

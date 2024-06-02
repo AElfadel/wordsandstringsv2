@@ -16,7 +16,13 @@ import { Icons } from "../ui/Icons";
 import { deleteEvent } from "@/lib/actions/event.actions";
 import { usePathname } from "next/navigation";
 
-function DeleteConfirmation({ eventId }: { eventId: string }) {
+function DeleteConfirmation({
+  eventId,
+  imageUrl,
+}: {
+  eventId: string;
+  imageUrl: string;
+}) {
   const pathname = usePathname();
   let [isPending, startTransition] = useTransition();
 
@@ -42,7 +48,11 @@ function DeleteConfirmation({ eventId }: { eventId: string }) {
             <AlertDialogAction
               className="bg-red-500"
               onClick={async function startTransition() {
-                await deleteEvent({ eventId, path: pathname });
+                await deleteEvent({
+                  eventId,
+                  path: pathname,
+                  imageUrl: imageUrl,
+                });
               }}
             >
               {isPending ? "Deleting..." : "Delete"}

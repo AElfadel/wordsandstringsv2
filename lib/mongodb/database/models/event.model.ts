@@ -20,7 +20,9 @@ organizer: {
     _id: string,
     firstName: string,
     lastName: string,
-}
+},
+numberOfTickets: string;
+termsagreement: boolean;
 }
 
 
@@ -37,8 +39,13 @@ const EventSchema = new Schema({
     url : {type: String},
     category: {type: Schema.Types.ObjectId, ref: "Category"},
     organizer: {type: Schema.Types.ObjectId, ref: "User"},
+    numberOfTickets: {type: String, required: true },
+    termsagreement: {type: Boolean, required: true}
 })
 
 const Event = models.Event || model("Event", EventSchema)
 
 export default Event;
+
+
+// perfomers: {type: Schema.Types.ObjectId, ref : "Perfomer"},
