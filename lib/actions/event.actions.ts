@@ -8,7 +8,6 @@ import Category from "../mongodb/database/models/category.model"
 import { revalidatePath } from "next/cache"
 import Order from "../mongodb/database/models/order.model"
 import { UTApi } from "uploadthing/server"
-import { utapi } from "@/app/api/uploadthing/route"
 
 
 
@@ -137,6 +136,7 @@ export async function deleteEvent( {eventId, path, imageUrl} : DeleteEventParams
 
             if (fileName) {
                 // Use the file name for deletion
+                const utapi = new UTApi()
                 await utapi.deleteFiles(fileName);
             }
         }
