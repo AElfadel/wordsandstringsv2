@@ -11,7 +11,7 @@ function Hero() {
           Spoken Word & Poetry events in Qatar
         </h1>
         <p className="">
-          Register to perfom in our events or get your tickets to attend
+          Register to perform in our events or get your tickets to attend
         </p>
         <Button
           asChild

@@ -3,6 +3,7 @@ import { Schema, model, models, Document } from "mongoose";
 export interface IOrder extends Document {
     createdAt: Date,
     totalAmount: string,
+
     buyer: {
         _id: string,
         firstName: string,
@@ -11,7 +12,8 @@ export interface IOrder extends Document {
     event: {
         _id: string,
         title: string,
-    }
+    },
+
 }
 
 
@@ -22,6 +24,7 @@ const OderSchema = new Schema({
     totalAmount: {
         type: String,
     },
+
     event: {
         type: Schema.Types.ObjectId,
         ref: 'Event'

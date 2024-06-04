@@ -304,6 +304,7 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
                     <Icons.tickets width={32} fill="#757575" />
 
                     <Input
+                      type="number"
                       placeholder="Number of tickets"
                       {...field}
                       className="input-field  justify-start bg-transparent"
@@ -403,14 +404,15 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
                   <div className="  h-[54px] w-full rounded-full bg-grey-50 px-4 flex items-center justify-between text-gray-500">
                     <label
                       htmlFor="termsagreement"
-                      className="whitespace-nowrap flex items-center gap-5 pr-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 "
+                      className="whitespace-nowrap flex items-center gap-5 pr-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 truncate  w-fit  "
                     >
                       <Icons.termsandcon height={28} fill="#757575" />
                       <a
-                        className="  overflow-y-auto text-sm font-bold underline"
+                        className="  overflow-y-auto text-sm md:text-base font-bold underline"
                         href="/events/termsandconditions"
                       >
-                        I accept the words and strings terms & conditions
+                        I accept words and strings
+                        <br className="md:hidden" /> terms and conditions
                       </a>
                     </label>
                     <Checkbox
@@ -440,7 +442,7 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
           }}
         >
           {form.formState.isSubmitting ? (
-            <p className=" animate-pulse">Uploading..</p>
+            <p className=" animate-pulse">CREATING EVENT..</p>
           ) : (
             `${type} Event`
           )}

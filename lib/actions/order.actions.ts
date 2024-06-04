@@ -10,18 +10,25 @@ import Event from "../mongodb/database/models/event.model";
 
 export async function createOrder(order: CreateOrderParams) {
     try { 
+      
         connectToDatabase()
 
+        const orders = []
 
-        const newOrder = await Order.create({
-            ...order,
-            event: order.eventId,
-            buyer: order.buyerId,
-            
-        })
+        const ticketQuanity = parseInt(order.ticketQuantity, 10)
 
-        return JSON.parse(JSON.stringify(newOrder))
+        for (let i = 0; i < ticketQuanity; i++) {
 
+            const newOrder = Order.create({
+                ...order,
+                event: order.eventId,
+                buyer: order.buyerId
+            })
+
+            orders.push(newOrder)
+        }
+
+        return JSON.parse(JSON.stringify(orders))
         
 
     } catch(error) {

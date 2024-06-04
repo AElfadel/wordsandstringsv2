@@ -33,7 +33,7 @@ function TicketDeleteConfirmation({
   return (
     <div>
       <AlertDialog>
-        <AlertDialogTrigger>Cancel My Ticket </AlertDialogTrigger>
+        <AlertDialogTrigger>Cancel Ticket </AlertDialogTrigger>
         <AlertDialogContent className="bg-white">
           <AlertDialogHeader>
             <AlertDialogTitle>

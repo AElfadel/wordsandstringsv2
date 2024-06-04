@@ -63,7 +63,14 @@ export type CreateUserParams = {
     query: string
     category: string
     limit: number
-    page: number
+    page: string
+  }
+
+  export type getActiveEventsParams = {
+    query?: string
+    category?: string
+    limit: number
+    page?: string
   }
   
   export type GetEventsByUserParams = {
@@ -120,6 +127,7 @@ export type CreateUserParams = {
     buyerId: string
     totalAmount: string
     createdAt: Date
+    ticketQuantity: string
   }
   
   export type GetOrdersByEventParams = {

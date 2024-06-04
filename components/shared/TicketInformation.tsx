@@ -1,6 +1,5 @@
 "use client";
 
-import { useTransition } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,7 +19,6 @@ import TicketBuyerInformation from "./TicketBuyerInformation";
 
 export default function TicketInformation({
   event,
-  userId,
   eventFinished,
   order,
 }: {
@@ -39,7 +37,7 @@ export default function TicketInformation({
             </div>
 
             <p className="font-mono text-sm capitalize line-clamp-2  text-black mt-2">
-              {event.title}
+              {formatDateTime(event.startDateTime).dateOnly}
             </p>
           </div>
           <div

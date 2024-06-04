@@ -11,12 +11,9 @@ import { IEvent } from "@/lib/mongodb/database/models/event.model";
 type CardProps = {
   event: IEvent;
   hasOrderLink?: boolean;
-  hidePrice?: boolean;
 };
 
-//This component for the TICKETS => Gets passed down an event, as previously we've mapped through every event ordered (user) by the user.
-
-function Card({ event, hasOrderLink, hidePrice }: CardProps) {
+function Card({ event, hasOrderLink }: CardProps) {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
 

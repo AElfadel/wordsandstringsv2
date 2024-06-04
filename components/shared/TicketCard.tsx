@@ -32,6 +32,13 @@ async function TicketCard({ event }: { event: IEvent }) {
         }`}
       />
 
+      <div className=" absolute right-2 top-8 flex flex-col gap-4 rounded-xl bg-white p-3 shadow-sm transition-all">
+        <Link href={`/events/${event._id}/update`} className="flex text-sm">
+          Go to event page
+          <Icons.link fill="#101010" height={20} width={20} />
+        </Link>
+      </div>
+
       <div className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4">
         <p
           className={` text-black font-mono  font-bold
@@ -39,7 +46,7 @@ async function TicketCard({ event }: { event: IEvent }) {
     `}
         >
           {eventDay ? <p>TODAY!</p> : null}
-          {formatDateTime(event.startDateTime).dateOnly}
+          {event.title}{" "}
         </p>
 
         {/* EVENT Finished */}

@@ -1,6 +1,6 @@
 "use server"
 
-import { CreateEventParams, DeleteEventParams, GetAllEventsParams, GetEventsByUserParams, GetRelatedEventsByCategoryParams, UpdateEventParams } from "@/types"
+import { CreateEventParams, DeleteEventParams, GetAllEventsParams, GetEventsByUserParams, GetRelatedEventsByCategoryParams, UpdateEventParams, getActiveEventsParams } from "@/types"
 import { connectToDatabase } from "../mongodb/database"
 import User from "../mongodb/database/models/user.model"
 import Event from "../mongodb/database/models/event.model"
@@ -65,7 +65,7 @@ console.log(error)
 }
 
 
-export async function getActiveEvents({query, limit = 6, page, category}: GetAllEventsParams) {
+export async function getActiveEvents({ limit = 6 }: getActiveEventsParams) {
     try {
         await connectToDatabase()
 
@@ -75,7 +75,7 @@ export async function getActiveEvents({query, limit = 6, page, category}: GetAll
             endDateTime: { $gte: todaysDate}
         }
 
-        const eventsQuery =  Event.find(conditions).sort({createdAt: 'desc'}).skip(0).limit(limit)
+        const eventsQuery =  Event.find(conditions).sort({startDateTime: "asc"}).skip(0).limit(limit)
 
         const events = await populateEvent(eventsQuery)
         

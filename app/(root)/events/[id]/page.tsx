@@ -1,6 +1,7 @@
 import {
   getRelatedEventsByCategory,
   getEventById,
+  getActiveEvents,
 } from "@/lib/actions/event.actions";
 import { formatDateTime } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
@@ -9,9 +10,9 @@ import { Icons } from "@/components/ui/Icons";
 import Collection from "@/components/shared/Collection";
 import CheckoutButton from "@/components/shared/CheckoutButton";
 import { checkUserAlreadyHasTicket } from "@/lib/actions/order.actions";
-import { auth, clerkClient } from "@clerk/nextjs/server";
-import Link from "next/link";
-import { Button } from "@/components/ui/Button";
+import { auth } from "@clerk/nextjs/server";
+
+import RegisterToPerform from "@/components/shared/RegisterToPerform";
 
 async function page({ params: { id }, searchParams }: SearchParamProps) {
   const event = await getEventById(id);
@@ -25,9 +26,8 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
     userId,
   });
 
-  const relatedEvents = await getRelatedEventsByCategory({
-    categoryId: event.category._id,
-    eventId: event._id,
+  const relatedEvents = await getActiveEvents({
+    limit: 3,
     page: searchParams.page as string,
   });
 
@@ -40,7 +40,7 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
             alt="hero image"
             width={1000}
             height={1000}
-            className="h-full min-h-[300px] object-cover object-center"
+            className="h-fit md:h-full min-h-[300px] object-contain md:object-cover object-center"
           />
 
           <div className="flex w-full flex-col gap-8 p-5 md:p-10 bg-white">
@@ -113,15 +113,7 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
                 ticketCheck={ticketCheck}
               />
 
-              <Button
-                asChild
-                className="rounded-full p-7 text-white"
-                variant="secondary"
-              >
-                <Link href={`/events/${id}/perform`}>
-                  Register to perfom 🎤
-                </Link>
-              </Button>
+              <RegisterToPerform id={id} />
             </div>
           </div>
         </div>
@@ -129,7 +121,7 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
 
       {/* EVENTS from the same category */}
       <section className="wrapper my-8 flex flex-col gap-8 md:gap-12">
-        <h2 className="h2-bold">Related Events</h2>
+        <h2 className="h2-bold text-white">UPCOMING EVENTS</h2>
 
         <Collection
           data={relatedEvents?.data}

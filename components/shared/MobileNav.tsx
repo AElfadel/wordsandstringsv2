@@ -10,7 +10,7 @@ import { Separator } from "../ui/Seperator";
 import { Icons } from "../ui/Icons";
 import Link from "next/link";
 
-export default function MobileNav() {
+export default function MobileNav({ display }: { display: boolean }) {
   return (
     <nav className="md:hidden mt-1 ">
       <Sheet>
@@ -21,7 +21,7 @@ export default function MobileNav() {
           <SheetContent className="flex flex-col gap-6 md:hidden bg-white w-[250px]">
             <SheetDescription>
               <div className="">
-                <Icons.WordsAndString />
+                <Icons.WordsAndString width={42} />
                 <Separator className="border border-gray-50 my-4" />
                 <SheetClose>
                   {/* <NavItems /> */}
@@ -41,6 +41,16 @@ export default function MobileNav() {
                         <SheetClose>About Us</SheetClose>
                       </Link>
                     </li>
+                    {display && (
+                      <>
+                        <li className="pt-4"> Organizers control:</li>
+                        <li className="font-bold text-sm  rounded-full bg-black text-white p-1 -mt-2 ">
+                          <Link href="/events/create" className=" ">
+                            o Create Event
+                          </Link>
+                        </li>
+                      </>
+                    )}
                   </ul>
                 </SheetClose>
               </div>

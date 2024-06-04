@@ -2,24 +2,22 @@
 
 import Link from "next/link";
 import { Button } from "../ui/Button";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import NavItems from "./NavItems";
 import MobileNav from "./MobileNav";
 import { Icons } from "../ui/Icons";
 
 function Navbar() {
+  const { user } = useUser();
+  const userCheck = user?.emailAddresses[0].emailAddress as string;
+  const display = userCheck === process.env.NEXT_PUBLIC_CRE_CHECK;
+
   return (
     <div className=" w-full bg-neutral-100 px-2 py-2">
       <div className="flex    justify-between px-3">
         <Link className="flex  " href="/">
-          <Icons.WordsAndString />
-          {/* <Image
-            src="/was_logo.png"
-            width="40"
-            height="40"
-            className=" object-contain"
-            alt="Words and strings logo"
-          /> */}
+          <Icons.WordsAndString width={45} />
+
           <p className="md:flex justify-center items-center text-sm px-1 mt-2 -ml-2 text-black   hidden">
             Words & Strings
           </p>
@@ -27,7 +25,7 @@ function Navbar() {
 
         <SignedIn>
           <nav className="md:flex-between hidden w-full max-w-xs ">
-            <NavItems />
+            <NavItems display={display} />
           </nav>
         </SignedIn>
 
@@ -42,7 +40,7 @@ function Navbar() {
               <UserButton afterSignOutUrl="/" />
               <div />
             </SignedIn>
-            <MobileNav />
+            <MobileNav display={display} />
           </div>
         </div>
       </div>
