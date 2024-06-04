@@ -14,7 +14,7 @@ export async function createOrder(order: CreateOrderParams) {
         connectToDatabase()
 
         const orders = []
-
+        
         const ticketQuanity = parseInt(order.ticketQuantity, 10)
 
         for (let i = 0; i < ticketQuanity; i++) {

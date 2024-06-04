@@ -8,14 +8,14 @@ import {
 export default async function Home() {
   const activeEvents = await getActiveEvents({
     query: "",
-    page: 1,
+    page: "1",
     category: "",
     limit: 6,
   });
 
   const finishedEvents = await getFinishedEvents({
     query: "",
-    page: 1,
+    page: "1",
     category: "",
     limit: 10,
   });
