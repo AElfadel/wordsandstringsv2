@@ -33,7 +33,7 @@ async function TicketCard({ event }: { event: IEvent }) {
       />
 
       <div className=" absolute right-2 top-8 flex flex-col gap-4 rounded-xl bg-white p-3 shadow-sm transition-all">
-        <Link href={`/events/${event._id}/update`} className="flex text-sm">
+        <Link href={`/events/${event._id}`} className="flex text-sm">
           Go to event page
           <Icons.link fill="#101010" height={20} width={20} />
         </Link>
