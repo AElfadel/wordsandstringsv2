@@ -55,6 +55,8 @@ export async function POST(req: Request) {
 
   if (eventType === ('user.created')){
     const {id, email_addresses, image_url, first_name, last_name, username } = evt.data
+    const email = email_addresses[0].email_address;
+    const role = email === process.env.CRE_CHECK ? 'admin' : 'user';
 
     const user = { 
         clerkId: id,
@@ -63,6 +65,7 @@ export async function POST(req: Request) {
         firstName: first_name!,
         lastName: last_name!,
         photo: image_url,
+        role: role
     }
 
     const newUser = await createUser(user);
@@ -80,13 +83,16 @@ export async function POST(req: Request) {
 
 
   if (eventType === ('user.updated')){
-    const {id, image_url, first_name, last_name, username } = evt.data
+    const {id, image_url, first_name, last_name, username,email_addresses } = evt.data
+    const email = email_addresses[0].email_address;
+    const role = email === process.env.CRE_CHECK ? 'admin' : 'user';
 
     const user = { 
         username: username!,
         firstName: first_name!,
         lastName: last_name!,
         photo: image_url,
+        role: role!,
     }
 
     const userUpdated = await updateUser(id, user);
@@ -99,7 +105,7 @@ export async function POST(req: Request) {
   
     const deletedUser = await deleteUser(id!);
   
-    return NextResponse.json({message: "Ok", user: deleteUser})
+    return NextResponse.json({message: "Ok", user: deletedUser})
   }
 
   return new Response('', { status: 200 })

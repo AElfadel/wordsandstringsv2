@@ -21,7 +21,7 @@ function page() {
         Qatar.Through our events, Words and Strings hope to promote and
         cultivate a love for creative writing and the literary arts in Qatar, as
         well as drop the spotlight on the local spoken and literary art
-        scene.Words and Strings will further promote Qatar's significant support
+        scene.Words and Strings will further promote Qatars significant support
         of arts and talent not only locally, but in the international poetry and
         spoken word community.
       </p>

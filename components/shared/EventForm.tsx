@@ -410,6 +410,7 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
                       <a
                         className="  overflow-y-auto text-sm md:text-base font-bold underline"
                         href="/events/termsandconditions"
+                        target="_blank"
                       >
                         I accept words and strings
                         <br className="md:hidden" /> terms and conditions
