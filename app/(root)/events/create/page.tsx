@@ -8,7 +8,7 @@ const CreateEvent = () => {
 
   const userEmail = sessionClaims?.primaryEmail as string;
 
-  const viewCheck = userEmail === process.env.NEXT_PUBLIC_CRE_CHECK;
+  const viewCheck = userEmail === process.env.CRE_CHECK;
 
   return (
     <>

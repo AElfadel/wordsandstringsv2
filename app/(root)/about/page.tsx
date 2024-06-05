@@ -1,6 +1,18 @@
+import { getUserData } from "@/lib/actions/user.actions";
+import { auth } from "@clerk/nextjs/server";
 import React from "react";
 
-function page() {
+async function page() {
+  const { sessionClaims } = auth();
+
+  const userId = (await sessionClaims?.userId) as string;
+
+  console.log(userId);
+
+  const userData = await getUserData(userId);
+
+  console.log(userData);
+
   return (
     <div className="h-screen text-white">
       <h1 className="text-3xl">About us</h1>
