@@ -4,23 +4,20 @@ import React, { useState } from "react";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "../ui/Form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/Input";
 import { Button } from "../ui/Button";
-import eventFormSchema from "@/lib/validator";
+import { eventFormSchema } from "@/lib/validator";
 import * as z from "zod";
 import { eventDefaultValues } from "@/constants";
 import Dropdown from "./Dropdown";
 import { Textarea } from "../ui/Textarea";
 import FileUploader from "./FileUploader";
-import Image from "next/image";
 import { Icons } from "../ui/Icons";
 
 import { useUploadThing } from "@/lib/uploadthing";
@@ -68,7 +65,9 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
     let uploadedImageUrl = values.imageUrl;
 
     if (files.length > 0) {
-      const uploadedImages = await startUpload(files);
+      const uploadedImages = await startUpload(files, {
+        foo: uploadedImageUrl,
+      });
 
       if (!uploadedImages) {
         return;
@@ -393,6 +392,38 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
           />
         </div>
         <div className="flex flex-col gap-5 md:flex-row">
+          {/*Peformers signup*/}
+          <FormField
+            control={form.control}
+            name="performersReg"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <div className="  h-[54px] w-full rounded-full bg-grey-50 px-4 flex items-center justify-between text-gray-500">
+                    <label
+                      htmlFor="performersReg"
+                      className="whitespace-nowrap flex items-center gap-5 pr-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 truncate  w-fit  "
+                    >
+                      <div className="flex gap-2">
+                        <Icons.mic height={28} fill="#757575" />
+
+                        <Icons.mic height={28} fill="#757575" />
+                      </div>
+                      Enable Performers Registration
+                    </label>
+                    <Checkbox
+                      onCheckedChange={field.onChange}
+                      checked={field.value}
+                      id="performersReg"
+                      className="mr-2 h-5 w-5 border-2 border-primary-500"
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           {/* terms and agreement url*/}
 
           <FormField
@@ -401,19 +432,23 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <div className="  h-[54px] w-full rounded-full bg-grey-50 px-4 flex items-center justify-between text-gray-500">
+                  <div
+                    className="  h-[54px] 
+                  w-fullrounded-full bg-grey-50 px-4 flex items-center justify-between text-gray-500"
+                  >
                     <label
                       htmlFor="termsagreement"
                       className="whitespace-nowrap flex items-center gap-5 pr-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 truncate  w-fit  "
                     >
                       <Icons.termsandcon height={28} fill="#757575" />
                       <a
-                        className="  overflow-y-auto text-sm md:text-base font-bold underline"
+                        className="  overflow-y-auto text-sm md:text-[12px] lg:text-base font-bold underline "
                         href="/events/termsandconditions"
                         target="_blank"
                       >
                         I accept words and strings
-                        <br className="md:hidden" /> terms and conditions
+                        <br className="md:hidden" />
+                        terms and conditions
                       </a>
                     </label>
                     <Checkbox

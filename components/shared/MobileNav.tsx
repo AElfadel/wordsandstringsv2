@@ -43,10 +43,13 @@ export default function MobileNav({ display }: { display: boolean }) {
                     </li>
                     {display && (
                       <>
-                        <li className="pt-4"> Organizers control:</li>
-                        <li className="font-bold text-sm  rounded-full bg-black text-white p-1 -mt-2 ">
-                          <Link href="/events/create" className=" ">
-                            o Create Event
+                        <li className="pt-4 text-xs"> Organizers control:</li>
+                        <li className="rounded-full text-sky-500  whitespace-nowrap font-bold  text-sm ">
+                          <Link
+                            href="/events/create"
+                            className=" cursor-pointer"
+                          >
+                            Create Event
                           </Link>
                         </li>
                       </>

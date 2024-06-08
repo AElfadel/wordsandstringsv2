@@ -1,9 +1,10 @@
-import { Dispatch, SetStateAction, useCallback } from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { useDropzone } from "@uploadthing/react/hooks";
 
 import { generateClientDropzoneAccept } from "uploadthing/client";
 import { convertFileToUrl } from "@/lib/utils";
 import { Button } from "../ui/Button";
+import { error } from "console";
 
 type FileUploaderProps = {
   onFieldChange: (value: string) => void;
@@ -20,13 +21,16 @@ export default function FileUploader({
   //Drop back
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFiles(acceptedFiles);
-    onFieldChange(convertFileToUrl(acceptedFiles[0]));
+    const fileUrl = convertFileToUrl(acceptedFiles[0]);
+    onFieldChange(fileUrl);
   }, []);
 
   //useDropZone hook from uploadthing
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: "image/*" ? generateClientDropzoneAccept(["image/*"]) : undefined,
+    maxSize: 2 * 1024 * 1024, // 2MB in bytes
+    maxFiles: 1,
   });
 
   return (
@@ -42,7 +46,7 @@ export default function FileUploader({
             alt="uploaded image preview"
             width={250}
             height={250}
-            className="w-full object-cover object-center"
+            className="w-full object-cover object-center z-0"
           />
         </div>
       ) : (
@@ -53,10 +57,13 @@ export default function FileUploader({
             height={77}
             alt="file upload"
           />
-          <h3 className="mb-2 mt-2">Drag photo here</h3>
-          <p className="p-medium-12 mb-4">SVG, PNG, JPG</p>
+          <h3 className="mb-2 mt-2">Drag event cover here</h3>
+          <p className="p-medium-12 mb-4">1 Image</p>
+          <p className="p-medium-12 mb-4">PNG, JPG, SVG Format </p>
+          <p className="p-medium-12 mb-4">Maximum size 2MB</p>
+
           <Button type="button" className="rounded-full">
-            Select from computer
+            Select from device
           </Button>
         </div>
       )}

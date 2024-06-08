@@ -108,3 +108,20 @@ export async function deleteUser(clerkId: string) {
       console.log(error)
     }
   }
+
+
+  export async function userPermissions(userId: string) {
+
+    try {
+      await connectToDatabase()
+
+      const userToBeChecked = await User.findById(userId)
+
+      const isUserAdmin = userToBeChecked.role === "admin" ? true : false
+
+      return isUserAdmin 
+
+    } catch(error) {
+      console.log(error)
+    }
+  }

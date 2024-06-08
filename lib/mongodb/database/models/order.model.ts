@@ -34,7 +34,7 @@ const OderSchema = new Schema({
         ref: "User"
     },
 
-})
+}, { strict: false })
 
 const Order = models.Order || model('Order', OderSchema)
 

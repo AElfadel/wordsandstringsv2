@@ -8,7 +8,7 @@ export interface ICategory extends Document {
 
 const CategorySchema = new Schema({
     name: {type: String, required: true, unique: true}
-})
+}, { strict: false })
 
 const Category = models.Category || model('Category', CategorySchema)
 

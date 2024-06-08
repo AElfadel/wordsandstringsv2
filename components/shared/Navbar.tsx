@@ -38,7 +38,6 @@ function Navbar() {
           <div className=" justify-center flex gap-3 ">
             <SignedIn>
               <UserButton afterSignOutUrl="/" />
-              <div />
             </SignedIn>
             <MobileNav display={display} />
           </div>

@@ -22,6 +22,7 @@ organizer: {
     lastName: string,
 },
 numberOfTickets: string;
+performersReg: boolean;
 termsagreement: boolean;
 }
 
@@ -40,8 +41,9 @@ const EventSchema = new Schema({
     category: {type: Schema.Types.ObjectId, ref: "Category"},
     organizer: {type: Schema.Types.ObjectId, ref: "User"},
     numberOfTickets: {type: String, required: true },
-    termsagreement: {type: Boolean, required: true}
-})
+    termsagreement: {type: Boolean, required: true},
+    performersReg: {type: Boolean, required: true, default: false}
+}, { strict: false })
 
 const Event = models.Event || model("Event", EventSchema)
 

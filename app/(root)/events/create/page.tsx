@@ -1,14 +1,13 @@
 import EventForm from "@/components/shared/EventForm";
+import { userPermissions } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs/server";
 
-const CreateEvent = () => {
+export default async function CreateEvent() {
   const { sessionClaims } = auth();
 
   const userId = sessionClaims?.userId as string;
 
-  const userEmail = sessionClaims?.primaryEmail as string;
-
-  const viewCheck = userEmail === process.env.CRE_CHECK;
+  const viewCheck = await userPermissions(userId);
 
   return (
     <>
@@ -26,6 +25,4 @@ const CreateEvent = () => {
       </section>
     </>
   );
-};
-
-export default CreateEvent;
+}

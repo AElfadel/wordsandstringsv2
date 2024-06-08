@@ -11,7 +11,12 @@ function RegisterToPerform({ id }: RegisterToPerformProps) {
   return (
     <div className="-ml-2">
       <SignedOut>
-        <Button asChild className="rounded-full text-white" variant="secondary">
+        <Button
+          asChild
+          className="button rounded-full  p-4 text-white"
+          size="lg"
+          variant="secondary"
+        >
           <Link href="/sign-in">Register to perform 🎤</Link>
         </Button>
       </SignedOut>
@@ -19,7 +24,8 @@ function RegisterToPerform({ id }: RegisterToPerformProps) {
       <SignedIn>
         <Button
           asChild
-          className="rounded-full px-4 py-7 text-white"
+          className="button rounded-full  p-4 text-white"
+          size="lg"
           variant="secondary"
         >
           <Link href={`/events/${id}/perform`}>Register to perfom 🎤</Link>

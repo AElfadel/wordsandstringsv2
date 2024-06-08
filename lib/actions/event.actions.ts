@@ -30,12 +30,14 @@ export async function createEvent({event, userId, path}: CreateEventParams) {
             throw new Error("Organizer does not exist")
         } 
 
+
         const newEvent = await Event.create({
             ...event,
              category: event.categoryId,
              organizer: userId,
              numberOfTickets: event.numberOfTickets,
-             termsagreement: event.termsagreement
+             termsagreement: event.termsagreement,
+      performersReg: event.performersReg
          });
 
          console.log(newEvent)

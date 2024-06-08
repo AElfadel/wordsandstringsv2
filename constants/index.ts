@@ -12,5 +12,28 @@
     url: '',
     numberOfTickets: "",
     termsagreement: false,
+    performersReg: false,
+
+  }
+
+
+  export const performerDefaultValues = {
+    fullName: "",
+   
+    funFact: "",
+    
+    imgUrl: "",
+
+    phoneNumber: "",
+
+    termsagreement: false,
+
+    eventId: "",
+
+    performanceDetails: "",
+
+    performanceType: undefined,
+
+    performanceLanguage: "",
 
   }

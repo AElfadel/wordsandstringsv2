@@ -17,10 +17,9 @@ export interface IPerfomer extends Document {
 const PerformerSchema = new Schema({
     clerkId: { type: String, required: true, unique: true},
     email: { type: String, required: true, unique: true},
-    username: { type: String, required: true, unique: true},
-    firstName: { type: String, required: true},
-    lastName: { type: String, required: true},
-    idScan_url : {type: String, required: true},
+    fullName: { type: String, required: true, unique: true},
+    funFact: {type: String, required: true},
+    imgUrl : {type: String, required: true},
     phoneNumber: { type: String, required:true},
     termsAgreement: {type: Boolean, default: false},
     performanceType: {
@@ -28,8 +27,16 @@ type: String,
 enum: ['spoken word', 'musical performance'],
 required: true
     },
-    event: {type:Schema.Types.ObjectId, ref: "Event" }
-})
+    performanceDetails: {type: String, required: true},
+    event: {type:Schema.Types.ObjectId, ref: "Event" },
+    performanceLanguage: {type: String, required: true},
+    soloOrGroup : {
+        type: String,
+        enum: ['solo', 'band'],
+        required: true
+            },
+
+}, { strict: false })
 
 
 const Perfomer = models.Perfomer || model("Perfomer", PerformerSchema)

@@ -33,6 +33,7 @@ export type CreateUserParams = {
       url: string
       numberOfTickets: string
       termsagreement: boolean
+      performersReg: boolean
     }
     path: string
   }
@@ -51,6 +52,8 @@ export type CreateUserParams = {
       price: string
       isFree: boolean
       url: string
+      numberOfTickets: string
+      performersReg: boolean
     }
     path: string
   }
@@ -108,6 +111,9 @@ export type CreateUserParams = {
       _id: string
       name: string
     }
+    numberOfTickets: string
+    termsagreement: boolean
+    performersReg: boolean
   }
   
   // ====== CATEGORY PARAMS

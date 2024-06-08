@@ -13,6 +13,7 @@ import { checkUserAlreadyHasTicket } from "@/lib/actions/order.actions";
 import { auth } from "@clerk/nextjs/server";
 
 import RegisterToPerform from "@/components/shared/RegisterToPerform";
+import { SignIn, SignedIn, SignedOut } from "@clerk/nextjs";
 
 async function page({ params: { id }, searchParams }: SearchParamProps) {
   const event = await getEventById(id);
