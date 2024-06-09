@@ -86,6 +86,10 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
           path: "/profile",
         });
         if (newEvent) {
+          toast({
+            title: "Event created succesfully",
+            description: "You will be redirected to the new event page..",
+          });
           form.reset();
           router.push(`/events/${newEvent._id}`);
         }
@@ -304,8 +308,21 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
 
                     <Input
                       type="number"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
                       placeholder="Number of tickets"
                       {...field}
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value, 10);
+                        if (value >= 0) {
+                          field.onChange(value);
+                        }
+                      }}
+                      onKeyPress={(e) => {
+                        if (e.key === "-" || e.key === "+") {
+                          e.preventDefault();
+                        }
+                      }}
                       className="input-field  justify-start bg-transparent"
                     />
                   </div>
@@ -469,13 +486,6 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
           size="lg"
           disabled={form.formState.isSubmitting}
           className="button col-span-2 w-full"
-          onClick={() => {
-            form.formState.isSubmitting &&
-              toast({
-                title: "Uploading event data",
-                variant: "default",
-              });
-          }}
         >
           {form.formState.isSubmitting ? (
             <p className=" animate-pulse">CREATING EVENT..</p>

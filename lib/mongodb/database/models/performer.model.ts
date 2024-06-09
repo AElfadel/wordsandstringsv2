@@ -1,7 +1,6 @@
 import { Schema, models, model} from "mongoose"
 
 export interface IPerfomer extends Document {
-    clerkId: string;
     email: string;
     username: string;
     firstName: string;
@@ -11,11 +10,15 @@ export interface IPerfomer extends Document {
     termsAgreement: boolean;
     event: Schema.Types.ObjectId;
     performanceType: 'spoken word' | 'musical performance';
+    soloOrGroup: 'solo' | 'band'
+    user: Schema.Types.ObjectId
 
 }
 
 const PerformerSchema = new Schema({
-    clerkId: { type: String, required: true, unique: true},
+    createdAt: {
+        type: Date, default: Date.now()
+    },
     email: { type: String, required: true, unique: true},
     fullName: { type: String, required: true, unique: true},
     funFact: {type: String, required: true},
@@ -28,12 +31,17 @@ enum: ['spoken word', 'musical performance'],
 required: true
     },
     performanceDetails: {type: String, required: true},
-    event: {type:Schema.Types.ObjectId, ref: "Event" },
+    event: {type:Schema.Types.ObjectId, ref: "Event", required: true },
     performanceLanguage: {type: String, required: true},
     soloOrGroup : {
         type: String,
         enum: ['solo', 'band'],
         required: true
+            },
+            user:   {
+                type: Schema.Types.ObjectId,
+                ref: "User",
+                required: true
             },
 
 }, { strict: false })

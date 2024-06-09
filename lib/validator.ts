@@ -20,7 +20,7 @@ export const eventFormSchema = z.object({
     
     url: z.string().url(),
 
-    numberOfTickets: z.string().min(15, "number of tickets cannot be less than 15"),
+    numberOfTickets: z.number().min(10, "number of tickets cannot be less than 15"),
 
     termsagreement: z.literal<boolean>(true, { errorMap: () => ({message: "Only events that  agree to our terms can be displayed on the website",}),}),
 
@@ -47,11 +47,11 @@ export const eventFormSchema = z.object({
 
     performanceLanguage: z.string().min(3, "Language name should be more than 3 chatacters"),
 
-    idScan_url: z.string().url(),
+    imgUrl: z.string().url(),
 
-    soloOrGroup: z.enum(['solo', 'Band']),
+    soloOrGroup: z.enum(['solo', 'band']),
 
-    termsagreement: z.literal<boolean>(true, { errorMap: () => ({message: "Must agree to the terms if you would like to perform",}),}),
+    termsAgreement: z.literal<boolean>(true, { errorMap: () => ({message: "Must agree to the terms if you would like to perform",}),}),
 
 
   });

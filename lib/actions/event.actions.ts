@@ -40,8 +40,6 @@ export async function createEvent({event, userId, path}: CreateEventParams) {
       performersReg: event.performersReg
          });
 
-         console.log(newEvent)
-
             return JSON.parse(JSON.stringify(newEvent))
     } catch (error) {
         console.log(error)

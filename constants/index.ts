@@ -10,8 +10,8 @@
     price: '',
     isFree: false,
     url: '',
-    numberOfTickets: "",
-    termsagreement: false,
+    numberOfTickets: 0,
+    termsAgreement: false,
     performersReg: false,
 
   }
@@ -22,11 +22,11 @@
    
     funFact: "",
     
-    imgUrl: "",
+    idScan_url: "",
 
     phoneNumber: "",
 
-    termsagreement: false,
+    termsAgreement: false,
 
     eventId: "",
 

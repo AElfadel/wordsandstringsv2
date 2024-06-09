@@ -15,6 +15,7 @@ import {
 import { Icons } from "../ui/Icons";
 import { deleteEvent } from "@/lib/actions/event.actions";
 import { usePathname } from "next/navigation";
+import { useToast } from "../ui/Use-Toast";
 
 function DeleteConfirmation({
   eventId,
@@ -25,6 +26,8 @@ function DeleteConfirmation({
 }) {
   const pathname = usePathname();
   let [isPending, startTransition] = useTransition();
+
+  const { toast } = useToast();
 
   return (
     <div>
@@ -52,6 +55,10 @@ function DeleteConfirmation({
                   eventId,
                   path: pathname,
                   imageUrl: imageUrl,
+                });
+                toast({
+                  title: "Delete successful",
+                  description: "Event deleted successfully",
                 });
               }}
             >

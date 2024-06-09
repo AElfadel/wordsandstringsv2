@@ -14,6 +14,7 @@ import { auth } from "@clerk/nextjs/server";
 
 import RegisterToPerform from "@/components/shared/RegisterToPerform";
 import { SignIn, SignedIn, SignedOut } from "@clerk/nextjs";
+import { performerSignedUpAlready } from "@/lib/actions/performer.actions";
 
 async function page({ params: { id }, searchParams }: SearchParamProps) {
   const event = await getEventById(id);
@@ -25,6 +26,11 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
   const ticketCheck = await checkUserAlreadyHasTicket({
     eventId: event._id,
     userId,
+  });
+
+  const perfomerCheck = await performerSignedUpAlready({
+    eventId: event._id,
+    userId: userId,
   });
 
   const relatedEvents = await getActiveEvents({
@@ -114,7 +120,14 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
                 ticketCheck={ticketCheck}
               />
 
-              <RegisterToPerform id={id} />
+              {perfomerCheck ? null : <RegisterToPerform id={id} />}
+
+              {perfomerCheck && (
+                <div className="bg-slate-800 text-white rounded-md p-2 ">
+                  Application to
+                  <br /> perform sent
+                </div>
+              )}
             </div>
           </div>
         </div>

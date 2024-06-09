@@ -11,6 +11,7 @@ async function page({ params }: perfomersFormParams) {
   const { sessionClaims } = auth();
 
   const userId = (await sessionClaims?.userId) as string;
+  const eventId = params.id;
 
   return (
     <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
@@ -19,7 +20,7 @@ async function page({ params }: perfomersFormParams) {
           <h3 className="wrapper h3-bold text-center sm:text-left">
             Performer Registration
           </h3>
-          <PerformersForm userId={userId} />
+          <PerformersForm userId={userId} eventId={eventId} />
         </div>
       ) : (
         <p>Please return to the home page</p>

@@ -26,13 +26,21 @@ import {
   SelectValue,
 } from "@/components/ui/Select";
 import { Checkbox } from "../ui/Checkbox";
+import { useUploadThing } from "@/lib/uploadthing";
+import { useRouter } from "next/navigation";
+import { useToast } from "../ui/Use-Toast";
+import { performerSignup } from "@/lib/actions/performer.actions";
 
 type PerformerFormProps = {
   userId: string;
+  eventId: string;
 };
 
-function PerformersForm({ userId }: PerformerFormProps) {
+function PerformersForm({ userId, eventId }: PerformerFormProps) {
+  const { startUpload } = useUploadThing("imageUploader");
   const [files, setFiles] = useState<File[]>([]);
+  const router = useRouter();
+  const { toast } = useToast();
 
   // 1. Define the form
   const form = useForm<z.infer<typeof performerFormSchema>>({
@@ -41,10 +49,41 @@ function PerformersForm({ userId }: PerformerFormProps) {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof performerFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof performerFormSchema>) {
+    let uploadedImageUrl = values.imgUrl;
+
+    if (files.length > 0) {
+      const uploadedImages = await startUpload(files, {
+        foo: uploadedImageUrl,
+      });
+
+      if (!uploadedImages) {
+        return;
+      }
+      uploadedImageUrl = uploadedImages[0].url;
+    }
+
+    try {
+      const newPerformer = await performerSignup({
+        performer: {
+          ...values,
+          imgUrl: uploadedImageUrl,
+        },
+        userId,
+        eventId,
+      });
+      if (newPerformer) {
+        toast({
+          title: "Application to perform was registered",
+          description:
+            "You will be contacted by the organizers soon to confirm your participation",
+        });
+        form.reset();
+        router.push(`/events/${eventId}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -151,7 +190,7 @@ function PerformersForm({ userId }: PerformerFormProps) {
               <FormItem>
                 <FormLabel>Phone Number</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} placeholder="ex. 55123456" />
                 </FormControl>
 
                 <FormMessage />
@@ -206,7 +245,7 @@ function PerformersForm({ userId }: PerformerFormProps) {
           />
           <FormField
             control={form.control}
-            name="idScan_url"
+            name="imgUrl"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Scan of Qatar ID (required) or Passport</FormLabel>
@@ -224,7 +263,7 @@ function PerformersForm({ userId }: PerformerFormProps) {
           />
           <FormField
             control={form.control}
-            name="termsagreement"
+            name="termsAgreement"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
@@ -253,11 +292,11 @@ function PerformersForm({ userId }: PerformerFormProps) {
                     </p>
                     <div className="flex gap-2">
                       <Checkbox
-                        id="termsagreement"
+                        id="termsAgreement"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                       />
-                      <label htmlFor="termsagreement">Yes</label>
+                      <label htmlFor="termsAgreement">Yes</label>
                     </div>
                   </div>
                 </FormControl>
@@ -266,7 +305,18 @@ function PerformersForm({ userId }: PerformerFormProps) {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button
+            type="submit"
+            size="lg"
+            disabled={form.formState.isSubmitting}
+            className="button col-span-2"
+          >
+            {form.formState.isSubmitting ? (
+              <p className=" animate-pulse">Submitting..</p>
+            ) : (
+              "Submit"
+            )}
+          </Button>
         </form>
       </Form>
     </div>

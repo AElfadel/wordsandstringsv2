@@ -1,3 +1,4 @@
+
 // ====== USER PARAMS
 export type CreateUserParams = {
     clerkId: string
@@ -31,7 +32,7 @@ export type CreateUserParams = {
       price: string
       isFree: boolean
       url: string
-      numberOfTickets: string
+      numberOfTickets: number
       termsagreement: boolean
       performersReg: boolean
     }
@@ -52,7 +53,7 @@ export type CreateUserParams = {
       price: string
       isFree: boolean
       url: string
-      numberOfTickets: string
+      numberOfTickets: number
       performersReg: boolean
     }
     path: string
@@ -114,6 +115,32 @@ export type CreateUserParams = {
     numberOfTickets: string
     termsagreement: boolean
     performersReg: boolean
+  }
+
+  // ====== PERFORMER PARAMS
+  export type performerSignupProps ={
+    userId: string
+    performer: {
+      fullName: string
+   
+      funFact: string
+      
+      imgUrl: string
+  
+      phoneNumber: string
+  
+      termsAgreement: boolean,
+  
+      eventId: string
+  
+      performanceDetails: string
+  
+      performanceType: "spoken word" | "musical performance"
+  
+      performanceLanguage: string
+      soloOrGroup: "solo"  | "band"
+    }
+    eventId: string
   }
   
   // ====== CATEGORY PARAMS
