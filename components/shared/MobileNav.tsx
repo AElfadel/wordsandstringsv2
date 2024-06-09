@@ -15,7 +15,7 @@ export default function MobileNav({ display }: { display: boolean }) {
     <nav className="md:hidden mt-1 ">
       <Sheet>
         <SheetTrigger className=" align-middle">
-          <Icons.menu />
+          <Icons.menu fill="#ffffff" />
         </SheetTrigger>
         <SheetOverlay className="fixed inset-0 z-40 bg-transparent">
           <SheetContent className="flex flex-col gap-6 md:hidden bg-white w-[250px]">

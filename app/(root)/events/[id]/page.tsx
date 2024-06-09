@@ -15,6 +15,8 @@ import { auth } from "@clerk/nextjs/server";
 import RegisterToPerform from "@/components/shared/RegisterToPerform";
 import { SignIn, SignedIn, SignedOut } from "@clerk/nextjs";
 import { performerSignedUpAlready } from "@/lib/actions/performer.actions";
+import Link from "next/link";
+import { userPermissions } from "@/lib/actions/user.actions";
 
 async function page({ params: { id }, searchParams }: SearchParamProps) {
   const event = await getEventById(id);
@@ -33,6 +35,8 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
     userId: userId,
   });
 
+  const SRE_CHECK = await userPermissions(userId);
+
   const relatedEvents = await getActiveEvents({
     limit: 3,
     page: searchParams.page as string,
@@ -40,43 +44,43 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
 
   return (
     <>
-      <section className="flex justify-center bg-primary-50 bg-dotted-pattern bg-contain">
-        <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
+      <section className="flex justify-center ">
+        <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl bg-black text-coolBlack antialiased">
           <Image
             src={event.imageUrl}
             alt="hero image"
             width={1000}
             height={1000}
-            className="h-fit md:h-full min-h-[300px] object-contain md:object-cover object-center"
+            className="h-fit md:h-full min-h-[300px] object-contain  md:object-cover object-center bg-transparent rounded-b-3xl "
           />
 
-          <div className="flex w-full flex-col gap-8 p-5 md:p-10 bg-white">
-            <div className="flex flex-col gap-6">
-              <h2 className="h2-bold">{event.title}</h2>
+          <div className="flex w-full flex-col gap-8 p-5 md:p-10 bg-black text-white ">
+            <div className=" gap-6">
+              <h2 className="text-6xl font-bold flex flex-col">
+                <span className="text-base ml-2">
+                  {formatDateTime(event.startDateTime).dateOnly}
+                </span>
+                {event.title}
+              </h2>
 
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                 <div className="flex gap-3">
-                  <p className="p-bold-20 rounded-full px-5 py-2 bg-white/90 text-wassecondary">
+                  <p className="h3-bold  py-2  text-wassecondary">
                     Ticket Price: {event.isFree ? "FREE" : `${event.price} QR`}
                   </p>
-                  <p className="p-medium-16 rounded-full bg-[#f63e7a]/10 px-4 py-2.5 text-grey-500">
-                    {event.category.name}
-                  </p>
+                  {/* {SRE_CHECK && (
+                    <div className="bg-neutral-600 text-white font-mono w-[240px] rounded-md">
+                      <a href={`/events/${id}/orders`}>Admin control</a>{" "}
+                    </div>
+                  )} */}
                 </div>
-
-                {/* <p className="p-medium-18 ml-2 mt-2 sm:mt-0">
-                  by{" "}
-                  <span className="text-primary-500">
-                    {event.organizer.firstName} {event.organizer.lastName}
-                  </span>
-                </p> */}
               </div>
             </div>
 
             {/* EVENT DESCRIPTION*/}
 
             <div className="flex flex-col gap-2">
-              <p className="p-bold-20 text-grey-600">Event Description:</p>
+              <p className="p-bold-20 text-grey-100">About the event:</p>
               <p className="p-medium-16 lg:p-regular-18">{event.description}</p>
               <div className="flex gap-2 md:gap-3">
                 <div>

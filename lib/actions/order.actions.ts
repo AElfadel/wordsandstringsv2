@@ -1,10 +1,11 @@
 "use server"
 
-import {  CreateOrderParams, GetOrdersByUserParams } from "@/types";
+import {  CreateOrderParams, GetOrdersByEventParams, GetOrdersByUserParams } from "@/types";
 import { connectToDatabase } from "../mongodb/database";
 import Order from "../mongodb/database/models/order.model";
 import User from "../mongodb/database/models/user.model";
 import Event from "../mongodb/database/models/event.model";
+import { ObjectId } from "mongodb";
 
 
 
@@ -137,59 +138,79 @@ return JSON.parse(JSON.stringify(userOrder))
 }
 
 
-
 // GET ORDERS BY EVENT
-// export async function getOrdersByEvent({ searchString, eventId }: GetOrdersByEventParams) {
-//     try {
-//       await connectToDatabase()
-  
-//       if (!eventId) throw new Error('Event ID is required')
-//       const eventObjectId = new ObjectId(eventId)
-  
-//       const orders = await Order.aggregate([
-//         {
-//           $lookup: {
-//             from: 'users',
-//             localField: 'buyer',
-//             foreignField: '_id',
-//             as: 'buyer',
-//           },
-//         },
-//         {
-//           $unwind: '$buyer',
-//         },
-//         {
-//           $lookup: {
-//             from: 'events',
-//             localField: 'event',
-//             foreignField: '_id',
-//             as: 'event',
-//           },
-//         },
-//         {
-//           $unwind: '$event',
-//         },
-//         {
-//           $project: {
-//             _id: 1,
-//             totalAmount: 1,
-//             createdAt: 1,
-//             eventTitle: '$event.title',
-//             eventId: '$event._id',
-//             buyer: {
-//               $concat: ['$buyer.firstName', ' ', '$buyer.lastName'],
-//             },
-//           },
-//         },
-//         {
-//           $match: {
-//             $and: [{ eventId: eventObjectId }, { buyer: { $regex: RegExp(searchString, 'i') } }],
-//           },
-//         },
-//       ])
-  
-//       return JSON.parse(JSON.stringify(orders))
-//     } catch (error) {
-//       handleError(error)
-//     }
-//   }
+export async function getOrdersByEvent({ searchString, eventId }: GetOrdersByEventParams) {
+    try {
+        await connectToDatabase();
+
+        if (!eventId) throw new Error('Event ID is required');
+        const eventObjectId = new ObjectId(eventId);
+
+        // Debugging: Check if eventObjectId is correctly created
+        console.log(`Converted Event ID to ObjectId: ${eventObjectId}`);
+
+        const orders = await Order.aggregate([
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'buyer',
+                    foreignField: '_id',
+                    as: 'buyer',
+                },
+            },
+            {
+                $unwind: '$buyer',
+            },
+            {
+                $lookup: {
+                    from: 'events',
+                    localField: 'event',
+                    foreignField: '_id',
+                    as: 'event',
+                },
+            },
+            {
+                $unwind: '$event',
+            },
+            {
+                $project: {
+                    _id: 1,
+                    totalAmount: 1,
+                    createdAt: 1,
+                    eventTitle: '$event.title',
+                    eventId: '$event._id',
+                    buyer: {
+                        $concat: ['$buyer.firstName', ' ', '$buyer.lastName'],
+                    },
+                },
+            },
+            {
+                $match: {
+                    $and: [{ eventId: eventObjectId }, { buyer: { $regex: RegExp(searchString, 'i') } }],
+                },
+            },
+        ]);
+
+        const total = await Order.countDocuments({ event: eventObjectId });
+
+        console.log(`Orders found: ${orders.length}`);
+
+      return JSON.parse(JSON.stringify(orders))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  export async function totalTickets(eventId: string) {
+    try{
+await connectToDatabase()
+
+const totalTickets = await Order.countDocuments({event: eventId})
+
+return JSON.parse(JSON.stringify(totalTickets))
+
+    } catch(error) {
+        console.log(error)
+    }
+}
+
