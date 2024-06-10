@@ -1,22 +1,18 @@
-import { getUserData } from "@/lib/actions/user.actions";
-import { auth } from "@clerk/nextjs/server";
 import React from "react";
 
 async function page() {
-  const { sessionClaims } = auth();
-
-  const userId = (await sessionClaims?.userId) as string;
-
-  console.log(userId);
-
-  const userData = await getUserData(userId);
-
-  console.log(userData);
-
   return (
-    <div className="h-screen text-white">
-      <h1 className="text-3xl">About us</h1>
-      <h1>Our Begininng</h1>
+    <div className="h-screen mt-8 text-white antialiased">
+      <h1 className="text-3xl font-bold p-4 underline underline-offset-[24px] mb-[24px] h-fit">
+        About Words & Strings
+      </h1>
+
+      <div>
+        <img src="/stage3.jpeg" />
+        <p className="text-xs text-right italic p-2">
+          Photo by Tariq Al Fatih, 2018
+        </p>
+      </div>
       <p>
         Words & Strings started with a group of 5 enthusiastic and
         multi-talented youth, who are passionate about arts, and specifically

@@ -229,4 +229,3 @@ export async function getEventsByUser({ userId, page, limit =  6 }: GetEventsByU
     }
 }
 
-

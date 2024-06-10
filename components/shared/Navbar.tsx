@@ -13,25 +13,28 @@ function Navbar() {
   const display = userCheck === process.env.NEXT_PUBLIC_CRE_CHECK;
 
   return (
-    <div className=" w-full bg-velvet-700  px-2 py-2">
+    <div className=" w-full px-2 py-2">
       <div className="flex    justify-between px-3">
         <Link className="flex  " href="/">
           <Icons.WordsAndString width={45} />
 
-          <p className="md:flex justify-center text-white items-center text-sm px-1 mt-2 -ml-2   hidden">
+          <p className="md:flex justify-center text-white items-center text-sm px-1 mt-2 -ml-2    hidden">
             Words & Strings
           </p>
         </Link>
 
-        <SignedIn>
-          <nav className="md:flex-between hidden w-full max-w-xs ">
-            <NavItems display={display} />
-          </nav>
-        </SignedIn>
+        <nav className="md:flex-between hidden w-full max-w-xs ">
+          <NavItems display={display} />
+        </nav>
 
         <div className="flex justify-end  mt-3 gap-3 text-center">
           <SignedOut>
-            <Button asChild className="rounded-full" size="lg" variant="ghost">
+            <Button
+              asChild
+              className="text-black bg-white rounded-full"
+              size="lg"
+              variant="ghost"
+            >
               <Link href="/sign-in">Login</Link>
             </Button>
           </SignedOut>

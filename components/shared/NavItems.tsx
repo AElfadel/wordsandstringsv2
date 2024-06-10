@@ -18,7 +18,7 @@ function NavItems({ display }: { display: boolean }) {
   ];
 
   return (
-    <ul className=" md:flex-between flex w-full flex-col items-start gap-5 md:flex-row text-neutral-600">
+    <ul className=" md:flex-between flex w-full flex-col items-start gap-5 md:flex-row text-neutral-300 antialiased">
       {navbarLinks.map((link) => {
         const isActive = pathname === link.route;
         return (

@@ -28,7 +28,7 @@ export default async function Home() {
         className="wrapper my-8 flex flex-col gap-8 md:gap-12"
       >
         <h2 className="font-semibold text-xl">
-          Home of poetry <br /> in Qatar since 2014
+          Register to attend in our upcoming event
         </h2>
         {/* <div className="flex w-full gap-5 md:flex-row">
           Search Cateogry Filter

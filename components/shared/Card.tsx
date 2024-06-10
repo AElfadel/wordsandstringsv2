@@ -21,6 +21,8 @@ function Card({ event, hasOrderLink }: CardProps) {
 
   const eventFinished = new Date(event.endDateTime) < new Date();
 
+  const performersRegistrationOpen = event.performersReg;
+
   return (
     <div className="group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]">
       <Link
@@ -46,18 +48,24 @@ function Card({ event, hasOrderLink }: CardProps) {
       <div className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4">
         <div className="flex gap-2">
           <span
-            className={`p-semibold-14 w-fit rounded-full bg-green-100 px-4 py-1  line-clamp-1 ${
-              eventFinished ? "bg-gray-100 text-black" : "text-green-600"
+            className={`p-semibold-14 w-fit rounded-full bg-wassecondary px-4 py-1  line-clamp-1 ${
+              eventFinished ? "bg-gray-100 text-black" : "text-white"
             }`}
           >
             {event.isFree ? "FREE" : `${event.price} QR`}
           </span>
-          <p className="p-semibold-14 w-min rounded-full bg-grey-500/10 px-4 py-1 text-grey-500 line-clamp-1">
+          <p className="p-semibold-14  rounded-full bg-grey-500/10 px-4 py-1 text-grey-500 line-clamp-1 w-fit ">
             {event.category.name}
           </p>
         </div>
 
-        {eventFinished ? null : (
+        {/* EVENT DATE OR EVENT Finished */}
+
+        {eventFinished ? (
+          <p className="p-medium-16 p-medium-18 text-red-800 ">
+            Event Finished 👏
+          </p>
+        ) : (
           <p
             className="p-medium-16 p-medium-18 text-gray-500 
      
@@ -68,23 +76,32 @@ function Card({ event, hasOrderLink }: CardProps) {
         )}
 
         <Link href={`/events/${event._id}`}>
-          <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">
+          <p className="p-bold-24  line-clamp-2 flex-1 text-black">
             {event.title}
           </p>
         </Link>
 
-        {/* EVENT Finished */}
-        {eventFinished ? (
-          <p className="p-medium-16 p-medium-18 text-red-800 ">
-            Event Finished 👏
-          </p>
-        ) : null}
+        {/*EVENT VENUE */}
+        <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">
+          {event.location}
+        </p>
 
+        {/*PERFORMERS REGISTRATION */}
         <div className="flex-between w-full ">
-          <p className="p-medium-14 md:p-medium-16 text-gray-600">
-            {event.organizer.firstName} <span>& </span>
-            {event.organizer.lastName}
-          </p>
+          <a href={`/events/${event._id}`}>
+            <div className="p-medium-14 flex gap-1 text-gray-600  align-middle content-center text-center">
+              Performers Registration is
+              {performersRegistrationOpen ? (
+                <p>
+                  <span className="bg-wasprimary/20 text-wasprimary rounded-lg px-0.5 ">
+                    OPEN!
+                  </span>
+                </p>
+              ) : (
+                <p>FULL</p>
+              )}
+            </div>
+          </a>
 
           {hasOrderLink && (
             <Link

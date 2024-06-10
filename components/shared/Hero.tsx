@@ -8,7 +8,7 @@ function Hero() {
     <section className="wrapper grid grid-cols-1 gap-5 md:grid-cols-2 2xl:gap-0">
       <div className="flex flex-col justify-center gap-8">
         <h1 className=" font-semibold text-4xl">
-          Spoken Word & Poetry events in Qatar
+          Home of poetry <br /> in Qatar since 2014
         </h1>
         <p className="">
           Register to perform in our events or get your tickets to attend

@@ -18,14 +18,17 @@ export default function MobileNav({ display }: { display: boolean }) {
           <Icons.menu fill="#ffffff" />
         </SheetTrigger>
         <SheetOverlay className="fixed inset-0 z-40 bg-transparent">
-          <SheetContent className="flex flex-col gap-6 md:hidden bg-white w-[250px]">
+          {/* <SheetContent className="flex flex-col gap-6 md:hidden bg-white w-[250px]"> */}
+          <SheetContent className="flex flex-col gap-6 md:hidden bg-black w-[250px] ">
             <SheetDescription>
-              <div className="">
-                <Icons.WordsAndString width={42} />
-                <Separator className="border border-gray-50 my-4" />
+              <div>
+                <div className="pb-4">
+                  <Icons.WordsAndString width={52} />
+                </div>
+                {/* <Separator className="border border-gray-50 my-4" /> */}
                 <SheetClose>
                   {/* <NavItems /> */}
-                  <ul className=" md:flex-between flex w-full flex-col items-start gap-5 md:flex-row text-neutral-600">
+                  <ul className=" md:flex-between flex w-full flex-col items-start gap-5 md:flex-row text-white pt-4 text-3xl antialiased">
                     <li className="hover:text-wasprimary">
                       <Link href="/">
                         <SheetClose>Home</SheetClose>
@@ -36,9 +39,16 @@ export default function MobileNav({ display }: { display: boolean }) {
                         <SheetClose>My Tickets</SheetClose>
                       </Link>
                     </li>
+                    <Separator className="border border-gray-600 w-full" />
+
                     <li className="hover:text-wasprimary">
                       <Link href="/about">
                         <SheetClose>About Us</SheetClose>
+                      </Link>
+                    </li>
+                    <li className="hover:text-wasprimary">
+                      <Link href="/about">
+                        <SheetClose>Contact</SheetClose>
                       </Link>
                     </li>
                     {display && (

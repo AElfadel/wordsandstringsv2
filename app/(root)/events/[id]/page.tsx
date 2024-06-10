@@ -17,9 +17,10 @@ import { SignIn, SignedIn, SignedOut } from "@clerk/nextjs";
 import { performerSignedUpAlready } from "@/lib/actions/performer.actions";
 import Link from "next/link";
 import { userPermissions } from "@/lib/actions/user.actions";
+import { IEvent } from "@/lib/mongodb/database/models/event.model";
 
 async function page({ params: { id }, searchParams }: SearchParamProps) {
-  const event = await getEventById(id);
+  const event = (await getEventById(id)) as IEvent;
 
   const { sessionClaims } = auth();
 
@@ -34,6 +35,8 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
     eventId: event._id,
     userId: userId,
   });
+
+  const performersRegistrationOpen = event?.performersReg;
 
   const SRE_CHECK = await userPermissions(userId);
 
@@ -82,17 +85,15 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
             <div className="flex flex-col gap-2">
               <p className="p-bold-20 text-grey-100">About the event:</p>
               <p className="p-medium-16 lg:p-regular-18">{event.description}</p>
-              <div className="flex gap-2 md:gap-3">
-                <div>
-                  <Icons.link fill="#25c0fb" width={24} height={24} />
-                </div>
+              {/* <div className="flex gap-2 md:gap-3">
+                <Icons.link fill="#ffffff" width={24} height={24} />
                 <a
                   className="p-medium-16 lg:p-regular-18 truncate text-primary-500 underline"
                   href={event.url}
                 >
-                  {event.url}
+                  Maps Location
                 </a>
-              </div>
+              </div> */}
             </div>
 
             <div className="flex flex-col gap-5">
@@ -113,7 +114,12 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
               <div className="p-regular-20 flex items-center gap-3">
                 <Icons.location fill="#25c0fb" width={32} height={32} />
 
-                <p className="p-medium-16 lg:p-regular-20">{event.location}</p>
+                <a
+                  className="p-medium-16 lg:p-regular-18 truncate font-bold text-wasprimary underline"
+                  href={event.url}
+                >
+                  {event.location}
+                </a>
               </div>
             </div>
             <div className="flex gap-4">
@@ -124,7 +130,9 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
                 ticketCheck={ticketCheck}
               />
 
-              {perfomerCheck ? null : <RegisterToPerform id={id} />}
+              {perfomerCheck && performersRegistrationOpen ? null : (
+                <RegisterToPerform id={id} />
+              )}
 
               {perfomerCheck && (
                 <div className="bg-slate-800 text-white rounded-md p-2 ">
