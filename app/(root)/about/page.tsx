@@ -1,47 +1,50 @@
+import { Separator } from "@/components/ui/Seperator";
 import React from "react";
 
 async function page() {
   return (
-    <div className="h-screen mt-8 text-white antialiased">
-      <h1 className="text-3xl font-bold p-4 underline underline-offset-[24px] mb-[24px] h-fit">
-        About Words & Strings
-      </h1>
+    <section className="pt-4 antialiased">
+      <div className="pl-6 pr-4 w-full text-white">
+        <h1 className="text-3xl h5-bold  py-4 "> About Words & Strings</h1>
+        <Separator />
+      </div>
 
-      <div>
-        <img src="/stage3.jpeg" />
-        <p className="text-xs text-right italic p-2">
-          Photo by Tariq Al Fatih, 2018
+      <img src="/stage3.jpeg" className="pt-4" />
+      <p className="text-xs text-right text-neutral-400 italic p-2">
+        W&S event held in Georgetown University Qatar. Photo by Tariq Al Fatih,
+        2018
+      </p>
+
+      <div className="h-full my-8 text-white antialiased leading-loose px-6 text-[16px]  md:px-28">
+        <div></div>
+        <p className="">
+          In 2014, five passionate young artists ignited a spark in Qatar's
+          creative scene with Words & Strings (W&S). Frustrated by the lack of a
+          consistent platform for spoken word, they built W&S to bridge the gap
+          between talented artists and eager audiences. W&S is more than just a
+          platform – it's a thriving community where artists and art lovers can
+          connect, share their voices, and celebrate the power of spoken word.
+        </p>
+        <h1 className="text-3xl h5-bold  py-4 "> Our VISION</h1>
+        <p>
+          Grow Qatar's creative scene by fostering a multicultural community of
+          poets, spoken word artists, and musicians. Our events are more than
+          performances – they're a celebration of creative writing and the
+          literary arts. We're shining a light on Qatar's vibrant spoken word
+          scene and showcasing the country's commitment to nurturing artistic
+          talent, both locally and on the international stage.
+        </p>
+        <h1 className="text-3xl h5-bold  py-4 ">Our Mission</h1>
+
+        <p>
+          Foster a vibrant community of spoken word artists, poets, musicians,
+          and art lovers. Empower them to connect, share their voices, and
+          refine their talents through a thriving platform and enriching
+          educational experiences. Words & Strings elevates the local arts scene
+          and showcases Qatar's commitment to artistic growth on a global stage.
         </p>
       </div>
-      <p>
-        Words & Strings started with a group of 5 enthusiastic and
-        multi-talented youth, who are passionate about arts, and specifically
-        spoken word.This group attempted to fill the gap between the existence
-        of talent and the lack of consistent platform to share it, with the aim
-        to create an open space for artists and art lovers to come together and
-        comfortably share their talents on the only consistent, platform for
-        spoken word art in Qatar.
-      </p>
-      <h1>Our Vision</h1>
-      <p>
-        Words & Strings aim to create a bilingual outlet for poets, spoken word
-        artists, and musicians forming the first spoken word society in
-        Qatar.Through our events, Words and Strings hope to promote and
-        cultivate a love for creative writing and the literary arts in Qatar, as
-        well as drop the spotlight on the local spoken and literary art
-        scene.Words and Strings will further promote Qatars significant support
-        of arts and talent not only locally, but in the international poetry and
-        spoken word community.
-      </p>
-      <h1>Our Mission</h1>
-      <p>
-        Words & Strings aim to create an open space for artists (spoken word
-        artists, poets and musicians) and art lovers to come together and
-        comfortably share their talents on the only consistent, platform for
-        spoken word art in Qatar. and provide the means for them to grow and
-        enrich their talents in a much more structured and educational way.
-      </p>
-    </div>
+    </section>
   );
 }
 

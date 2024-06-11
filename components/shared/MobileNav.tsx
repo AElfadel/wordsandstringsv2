@@ -51,7 +51,7 @@ export default function MobileNav({ display }: { display: boolean }) {
                         <SheetClose>Contact</SheetClose>
                       </Link>
                     </li>
-                    {display && (
+                    {display ? (
                       <>
                         <li className="pt-4 text-xs"> Organizers control:</li>
                         <li className="rounded-full text-sky-500  whitespace-nowrap font-bold  text-sm ">
@@ -63,7 +63,7 @@ export default function MobileNav({ display }: { display: boolean }) {
                           </Link>
                         </li>
                       </>
-                    )}
+                    ) : null}
                   </ul>
                 </SheetClose>
               </div>

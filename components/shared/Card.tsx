@@ -36,14 +36,14 @@ function Card({ event, hasOrderLink }: CardProps) {
         }`}
       />
       {/*IS EVENT CREATOR  ..?*/}
-      {isEventCreator && (
+      {isEventCreator ? (
         <div className=" absolute right-2 top-2 flex flex-col gap-4 rounded-xl bg-white p-3 shadow-sm transition-all">
           <Link href={`/events/${event._id}/update`}>
             <Icons.edit fill="#101010" height={20} width={20} />
           </Link>
           <DeleteConfirmation eventId={event._id} imageUrl={event.imageUrl} />
         </div>
-      )}
+      ) : null}
 
       <div className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4">
         <div className="flex gap-2">
@@ -103,14 +103,14 @@ function Card({ event, hasOrderLink }: CardProps) {
             </div>
           </a>
 
-          {hasOrderLink && (
+          {hasOrderLink ? (
             <Link
               href={`/orders?eventId=${event._id}`}
               className="text-primary-500 "
             >
               <Icons.arrow fill="#101010" width={10} height={10} />
             </Link>
-          )}
+          ) : null}
         </div>
       </div>
     </div>
