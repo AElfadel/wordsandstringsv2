@@ -9,6 +9,7 @@ import {
 import { Separator } from "../ui/Seperator";
 import { Icons } from "../ui/Icons";
 import Link from "next/link";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 
 export default function MobileNav({ display }: { display: boolean }) {
   return (
@@ -35,10 +36,19 @@ export default function MobileNav({ display }: { display: boolean }) {
                       </Link>
                     </li>
                     <li className="hover:text-wasprimary">
-                      <Link href="/profile">
-                        <SheetClose>My Tickets</SheetClose>
-                      </Link>
+                      <SignedIn>
+                        <Link href="/profile">
+                          <SheetClose>My Tickets</SheetClose>
+                        </Link>
+                      </SignedIn>
+
+                      <SignedOut>
+                        <Link href="/sign-in">
+                          <SheetClose>My Tickets</SheetClose>
+                        </Link>
+                      </SignedOut>
                     </li>
+
                     <Separator className="border border-gray-600 w-full" />
 
                     <li className="hover:text-wasprimary">
@@ -47,7 +57,7 @@ export default function MobileNav({ display }: { display: boolean }) {
                       </Link>
                     </li>
                     <li className="hover:text-wasprimary">
-                      <Link href="/about">
+                      <Link href="/contact">
                         <SheetClose>Contact</SheetClose>
                       </Link>
                     </li>

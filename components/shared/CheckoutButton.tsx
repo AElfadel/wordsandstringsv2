@@ -77,7 +77,11 @@ export default function CheckoutButton({
       ) : (
         <>
           <SignedOut>
-            <Button asChild className="button rounded-full  p-4" size="lg">
+            <Button
+              asChild
+              className="button rounded-full  p-4 bg-white text-black"
+              size="lg"
+            >
               <Link href="/sign-in">Get Tickets</Link>
             </Button>
           </SignedOut>
@@ -94,7 +98,10 @@ export default function CheckoutButton({
               <>
                 <AlertDialog>
                   <AlertDialogTrigger>
-                    <Button className="button rounded-full  p-4" size="lg">
+                    <Button
+                      className="font-bold text-xl  hover:text-white rounded-full h-[54px]   bg-white text-black   p-6 hover:bg-primary/60"
+                      size="lg"
+                    >
                       GET TICKETS 🎟️
                     </Button>
                   </AlertDialogTrigger>

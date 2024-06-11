@@ -40,14 +40,14 @@ async function TicketCard({ event }: { event: IEvent }) {
       </div>
 
       <div className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4">
-        <p
+        <div
           className={` text-black font-mono  font-bold
       ${eventFinished ? "line-through text-gray-300" : null}
     `}
         >
           {eventDay ? <p>TODAY!</p> : null}
           {event.title}{" "}
-        </p>
+        </div>
 
         {/* EVENT Finished */}
 

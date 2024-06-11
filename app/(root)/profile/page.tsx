@@ -28,7 +28,7 @@ export default async function ProfilePage({ searchParams }: SearchParamProps) {
   const SRE_Check = await userPermissions(userId);
 
   return (
-    <div className="h-screen">
+    <div className="h-full">
       {/* My Tickets */}
       <section className=" text-white bg-transparent bg-cover bg-center py-5 md:py-10  ">
         <div className="wrapper flex items-center justify-center sm:justify-between ">
@@ -45,7 +45,7 @@ export default async function ProfilePage({ searchParams }: SearchParamProps) {
           emptyTitle="No event tickets booked yet"
           emptyStateSubtext="No worries - plenty of exciting events to explore!"
           collectionType="My_Tickets"
-          limit={3}
+          limit={6}
           page={ordersPage}
           urlParamName="ordersPage"
           totalPages={orders?.totalPages}

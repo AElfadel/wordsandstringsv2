@@ -54,7 +54,7 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
             alt="hero image"
             width={1000}
             height={1000}
-            className="h-fit md:h-full min-h-[300px] object-contain  md:object-cover object-center bg-transparent rounded-b-3xl "
+            className="h-fit md:h-full min-h-[300px] object-contain  md:object-cover object-center bg-transparent rounded-b-3xl md:rounded-none "
           />
 
           <div className="flex w-full flex-col gap-8 p-5 md:p-10 bg-black text-white ">
@@ -100,7 +100,7 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
               <div className="flex gap-2 md:gap-3">
                 <Icons.calendar fill="#25c0fb" width={32} height={32} />
 
-                <div className="p-medium-16 lg:p-regular-20 flex flex-wrap items-center gap-1">
+                <div className="text-lg font-bold lg:p-regular-20 flex flex-wrap items-center gap-1">
                   <p>
                     {formatDateTime(event.startDateTime).timeOnly} -{" "}
                     {formatDateTime(event.endDateTime).timeOnly}
@@ -111,11 +111,11 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
                 </div>
               </div>
 
-              <div className="p-regular-20 flex items-center gap-3">
+              <div className="p-regular-20 flex items-center  gap-3">
                 <Icons.location fill="#25c0fb" width={32} height={32} />
 
                 <a
-                  className="p-medium-16 lg:p-regular-18 truncate font-bold text-wasprimary underline"
+                  className="text-lg truncate font-bold text-wasprimary underline"
                   href={event.url}
                 >
                   {event.location}

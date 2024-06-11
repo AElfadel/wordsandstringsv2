@@ -15,7 +15,7 @@ function RegisterToPerform({ id }: RegisterToPerformProps) {
           asChild
           className="button rounded-full  p-4 text-white"
           size="lg"
-          variant="secondary"
+          variant="default"
         >
           <Link href="/sign-in">Register to perform 🎤</Link>
         </Button>
@@ -26,7 +26,7 @@ function RegisterToPerform({ id }: RegisterToPerformProps) {
           asChild
           className="button rounded-full  p-4 text-white"
           size="lg"
-          variant="secondary"
+          variant="default"
         >
           <Link href={`/events/${id}/perform`}>Register to perfom 🎤</Link>
         </Button>

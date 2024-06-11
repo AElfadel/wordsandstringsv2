@@ -24,9 +24,9 @@ function Collection({
   emptyStateSubtext,
   collectionType,
   orders,
-  limit,
+  urlParamName,
   page,
-  totalPages,
+  totalPages = 0,
 }: CollectionProps) {
   return (
     //  TICKET OWNER VIEW

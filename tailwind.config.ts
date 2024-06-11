@@ -13,11 +13,15 @@ module.exports = withUt({
     container: {
       center: true,
       padding: '2rem',
-      screens: {
-        '2xl': '1400px',
-      },
+   
     },
     extend: {
+
+      screens: {
+        'md': '914px',
+        '2xl': '1400px',
+
+      },
       colors: {
         coolBlack: "#1e0a3c",
         wasprimary: {
