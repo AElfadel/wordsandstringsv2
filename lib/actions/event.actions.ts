@@ -229,3 +229,47 @@ export async function getEventsByUser({ userId, page, limit =  6 }: GetEventsByU
     }
 }
 
+
+export async function toggleTicketsRegistration(eventId: string) {
+    try {
+        await connectToDatabase()
+
+        const event = await Event.findById(eventId);
+
+        if (!event) {
+            throw new Error("Event does not exist");
+        }
+
+        const toggleEventTicketsStatus = await Event.findByIdAndUpdate(
+            eventId,
+            { ticketsRegistration: !event.ticketsRegistration },
+            { new: true } // This option returns the updated document
+        );
+
+        if (!toggleEventTicketsStatus) {
+            throw new Error("Failed to update event");
+        }
+
+        return JSON.parse(JSON.stringify(toggleEventTicketsStatus));
+
+    } catch(error) {
+        console.log(error)
+    }
+}
+
+
+
+export async function eventTicketsStatus(eventId: string) {
+    try{ 
+        await connectToDatabase()
+
+        const event = await Event.findById(eventId);
+
+        const eventTicketsState = event.ticketsRegistration
+        
+        return {eventTicketsState}
+
+    } catch(error){
+        console.log(error)
+    }
+}

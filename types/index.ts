@@ -35,6 +35,7 @@ export type CreateUserParams = {
       numberOfTickets: number
       termsagreement: boolean
       performersReg: boolean
+      ticketsRegistration: boolean
     }
     path: string
   }
@@ -55,6 +56,8 @@ export type CreateUserParams = {
       url: string
       numberOfTickets: number
       performersReg: boolean
+      termsagreement: boolean
+      ticketsRegistration: boolean
     }
     path: string
   }

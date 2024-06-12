@@ -325,6 +325,33 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
                       }}
                       className="input-field  justify-start bg-transparent"
                     />
+
+                    {/*Tickets Enabled */}
+                    <FormField
+                      control={form.control}
+                      name="ticketsRegistration"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <div className="flex items-center">
+                              <label
+                                htmlFor="ticketsRegistration"
+                                className="whitespace-nowrap pr-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                              >
+                                Enable Tickets
+                              </label>
+                              <Checkbox
+                                onCheckedChange={field.onChange}
+                                checked={field.value}
+                                id="ticketsRegistration"
+                                className="mr-2 h-5 w-5 border-2 border-primary-500"
+                              />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                   </div>
                 </FormControl>
                 <FormMessage />

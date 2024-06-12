@@ -24,6 +24,8 @@ organizer: {
 numberOfTickets: number;
 performersReg: boolean;
 termsagreement: boolean;
+ticketsRegistration: boolean;
+
 }
 
 
@@ -42,6 +44,7 @@ const EventSchema = new Schema({
     organizer: {type: Schema.Types.ObjectId, ref: "User"},
     numberOfTickets: {type: Number, required: true },
     termsagreement: {type: Boolean, required: true},
+    ticketsRegistration: {type: Boolean, required: true},
     performersReg: {type: Boolean, required: true, default: false}
 }, { strict: false })
 

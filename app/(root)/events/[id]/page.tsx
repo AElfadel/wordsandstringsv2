@@ -9,7 +9,10 @@ import Image from "next/image";
 import { Icons } from "@/components/ui/Icons";
 import Collection from "@/components/shared/Collection";
 import CheckoutButton from "@/components/shared/CheckoutButton";
-import { checkUserAlreadyHasTicket } from "@/lib/actions/order.actions";
+import {
+  checkUserAlreadyHasTicket,
+  totalTickets,
+} from "@/lib/actions/order.actions";
 import { auth } from "@clerk/nextjs/server";
 
 import RegisterToPerform from "@/components/shared/RegisterToPerform";
@@ -18,6 +21,7 @@ import { performerSignedUpAlready } from "@/lib/actions/performer.actions";
 import Link from "next/link";
 import { userPermissions } from "@/lib/actions/user.actions";
 import { IEvent } from "@/lib/mongodb/database/models/event.model";
+import { Button } from "@/components/ui/Button";
 
 async function page({ params: { id }, searchParams }: SearchParamProps) {
   const event = (await getEventById(id)) as IEvent;
@@ -45,6 +49,10 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
     page: searchParams.page as string,
   });
 
+  const totalOrders = await totalTickets(event._id);
+
+  const activeTickets = parseInt(totalOrders, 10);
+
   return (
     <>
       <section className="flex justify-center ">
@@ -71,13 +79,24 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
                   <p className="h3-bold  py-2  text-wassecondary">
                     Ticket Price: {event.isFree ? "FREE" : `${event.price} QR`}
                   </p>
-                  {/* {SRE_CHECK && (
-                    <div className="bg-neutral-600 text-white font-mono w-[240px] rounded-md">
-                      <a href={`/events/${id}/orders`}>Admin control</a>{" "}
-                    </div>
-                  )} */}
                 </div>
               </div>
+              {SRE_CHECK && (
+                <div className=" p-medium-16 button flex gap-2">
+                  <Button
+                    asChild
+                    className="rounded-full text-white h-[54px] p-semibold-20 w-full  sm:w-fit bg-blue-400 hover:bg-black"
+                  >
+                    <Link href={`/events/${id}/orders`}>Tickets control</Link>
+                  </Button>
+                  <Button
+                    asChild
+                    className="rounded-full text-white h-[54px] p-semibold-20 w-full  sm:w-fit bg-wassecondary hover:bg-wassecondary"
+                  >
+                    <Link href={`/events/${id}/orders`}>Performers List</Link>
+                  </Button>
+                </div>
+              )}
             </div>
 
             {/* EVENT DESCRIPTION*/}
@@ -125,6 +144,7 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
             <div className="flex gap-4">
               {/* PUT CHECKOUT HERE!*/}
               <CheckoutButton
+                activeTickets={activeTickets}
                 event={event}
                 userId={userId}
                 ticketCheck={ticketCheck}

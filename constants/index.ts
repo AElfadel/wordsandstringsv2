@@ -13,7 +13,7 @@
     numberOfTickets: 0,
     termsAgreement: false,
     performersReg: false,
-
+    ticketsRegistration: false,
   }
 
 

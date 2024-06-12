@@ -14,7 +14,8 @@ function Hero() {
         <ul className="flex flex-col gap-3 text-2xl ">
           <li className="font-bold">Book your ticket for our next event</li>
           <li>
-            <span className="font-bold">Are you a poet or an artist?</span>{" "}
+            <span className="font-bold pb-1">Are you a poet or an artist?</span>
+            <br />
             apply to perform in in our next event
           </li>
         </ul>

@@ -24,7 +24,8 @@ export const eventFormSchema = z.object({
 
     termsagreement: z.literal<boolean>(true, { errorMap: () => ({message: "Only events that  agree to our terms can be displayed on the website",}),}),
 
-    performersReg: z.boolean()
+    performersReg: z.boolean(),
+    ticketsRegistration: z.boolean()
 
   });
 

@@ -55,12 +55,15 @@ export default function CheckoutButton({
   event,
   userId,
   ticketCheck,
+  activeTickets,
 }: {
   event: IEvent;
   userId: string;
   ticketCheck: boolean;
+  activeTickets: number;
 }) {
   const hasEventFinished = new Date(event.endDateTime) < new Date();
+  const ticketsLimit = event.numberOfTickets;
   const { toast } = useToast();
   const router = useRouter();
   const [value, setValue] = useState("1");
@@ -68,12 +71,12 @@ export default function CheckoutButton({
   const eventstartTime = formatDateTime(event.startDateTime).timeOnly;
   const eventEndTime = formatDateTime(event.endDateTime).timeOnly;
 
+  const eventSoldout = activeTickets >= ticketsLimit;
+
   return (
     <div className="flex items-center gap-3">
-      {hasEventFinished ? (
-        <p className="p-2 text-red-400">
-          Sorry, tickets are no longer available.
-        </p>
+      {hasEventFinished || eventSoldout ? (
+        <p className="p-2 text-red-400">Event tickets sold out!</p>
       ) : (
         <>
           <SignedOut>
