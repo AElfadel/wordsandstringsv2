@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/Button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,33 +14,67 @@ import {
 } from "@/components/ui/Form";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
+import { submitEmail } from "@/lib/actions/email.actions";
+import { useToast } from "@/components/ui/Use-Toast";
+import { SignedOut, SignedIn } from "@clerk/nextjs";
+import Link from "next/link";
 
 const formSchema = z.object({
-  name: z.string().min(2, "name must be longer than two characters").max(50),
-  email: z.string().min(2, "email must be longer than two characters").max(50),
+  name: z
+    .string()
+    .min(2, "name must be longer than two characters")
+    .max(50, "name must be less than 50 characters"),
+  email: z
+    .string()
+    .min(2, "email must be longer than two characters")
+    .max(50, "email must be less than 50 characters"),
   subject: z
     .string()
     .min(2, "subject must be longer than two characters")
-    .max(50),
+    .max(140, "subject must be less than 140 characters"),
   message: z
     .string()
     .min(10, "message must be longer than ten characters")
-    .max(1000),
+    .max(1000, "message must be less than one thousand characters"),
 });
 
 export default function ContactUs() {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      email: "",
       name: "",
+      subject: "",
+      message: "",
     },
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const formSent = await submitEmail(values);
+
+      if (formSent) {
+        console.log("form sent succesfully");
+
+        toast({
+          title: "✓  Message Sent",
+          description: "Your message was sent succesfully",
+          variant: "default",
+        });
+        form.reset();
+      }
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Email us directly at wordsandstrings@outlook.com",
+
+        description: "An error occured",
+        variant: "destructive",
+      });
+    }
   }
 
   return (
@@ -59,9 +92,13 @@ export default function ContactUs() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="your name.." {...field} />
+                  <Input
+                    placeholder="your name.."
+                    {...field}
+                    className="text-black"
+                  />
                 </FormControl>
 
                 <FormMessage />
@@ -75,7 +112,11 @@ export default function ContactUs() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="your email address.." {...field} />
+                  <Input
+                    placeholder="your email address.."
+                    className="text-black"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -88,7 +129,11 @@ export default function ContactUs() {
               <FormItem>
                 <FormLabel>Subject</FormLabel>
                 <FormControl>
-                  <Input placeholder="subject title.." {...field} />
+                  <Input
+                    placeholder="subject title.."
+                    className="text-black"
+                    {...field}
+                  />
                 </FormControl>
 
                 <FormMessage />
@@ -104,7 +149,7 @@ export default function ContactUs() {
                 <FormControl>
                   <Textarea
                     {...field}
-                    className="textarea rounded-2xl"
+                    className="textarea rounded-2xl min-h-44 text-black"
                     placeholder="write your message here.."
                   />
                 </FormControl>
@@ -113,14 +158,30 @@ export default function ContactUs() {
               </FormItem>
             )}
           />
-          <Button
-            type="submit"
-            variant="default"
-            className="mx-auto flex-center bg-wassecondary hover:bg-white hover:text-black text-lg text-white p-4"
-            size="lg"
-          >
-            Submit
-          </Button>
+          <SignedIn>
+            <Button
+              type="submit"
+              variant="default"
+              className="mx-auto flex-center bg-wassecondary hover:bg-white hover:text-black text-lg text-white p-4  "
+              size="lg"
+            >
+              {form.formState.isSubmitting ? (
+                <p className=" animate-pulse">Submitting</p>
+              ) : (
+                "Submit"
+              )}
+            </Button>
+          </SignedIn>
+
+          <SignedOut>
+            <Button
+              variant="default"
+              className="mx-auto flex-center bg-wassecondary hover:bg-white hover:text-black text-lg text-white p-4  "
+              size="lg"
+            >
+              <Link href="/sign-in">Submit</Link>
+            </Button>
+          </SignedOut>
         </form>
       </Form>
     </div>

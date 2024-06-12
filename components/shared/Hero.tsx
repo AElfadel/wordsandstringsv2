@@ -5,20 +5,25 @@ import Image from "next/image";
 
 function Hero() {
   return (
-    <section className="wrapper grid grid-cols-1 gap-5 md:grid-cols-2 2xl:gap-0">
+    <section className="wrapper grid grid-cols-1 gap-5 md:grid-cols-2 2xl:gap-0 antialiased">
       <div className="flex flex-col justify-center gap-8">
-        <h1 className=" font-semibold text-4xl">
+        <h1 className=" font-semibold text-4xl ">
           Home of poetry <br /> in Qatar since 2014
         </h1>
-        <p className="">
-          Register to perform in our events or get your tickets to attend
-        </p>
+
+        <ul className="flex flex-col gap-3 text-2xl ">
+          <li className="font-bold">Book your ticket for our next event</li>
+          <li>
+            <span className="font-bold">Are you a poet or an artist?</span>{" "}
+            apply to perform in in our next event
+          </li>
+        </ul>
         <Button
           asChild
-          className="button w-full text-white sm:w-fit"
+          className="rounded-full h-[54px] p-semibold-20 w-full text-white sm:w-fit "
           variant="default"
         >
-          <Link href="#events">NEXT EVENT ON</Link>
+          <Link href="#events">NEXT EVENT</Link>
         </Button>
       </div>
       <Image

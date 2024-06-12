@@ -1,6 +1,5 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -12,9 +11,9 @@ function NavItems({ display }: { display: boolean }) {
       route: "/",
       label: "Home",
     },
-
-    { route: "/about", label: "About Us" },
     { route: "/profile", label: "My Tickets" },
+    { route: "/about", label: "About Us" },
+    { route: "/contact", label: "Contact" },
   ];
 
   return (
@@ -25,8 +24,8 @@ function NavItems({ display }: { display: boolean }) {
           <li
             key={link.route}
             className={`${
-              isActive && "text-sky-500"
-            } flex-center p-medium-16 whitespace-nowrap hover:text-sky-700 `}
+              isActive && "text-sky-400"
+            } flex-center p-medium-16 whitespace-nowrap hover:text-sky-200 `}
           >
             <Link href={link.route}>{link.label}</Link>
           </li>
