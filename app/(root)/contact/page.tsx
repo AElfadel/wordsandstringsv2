@@ -29,7 +29,7 @@ const formSchema = z.object({
     .max(1000),
 });
 
-function page() {
+export default function ContactUs() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -126,5 +126,3 @@ function page() {
     </div>
   );
 }
-
-export default page;

@@ -32,10 +32,10 @@ async function page() {
           Grow Qatar&lsquo;s creative scene by fostering a multicultural
           community of poets, spoken word artists, and musicians. Our events are
           more than performances – they&lsquo;re a celebration of creative
-          writing and the literary arts. We&lsquo;re shining a light on Qatar's
-          vibrant spoken word scene and showcasing the country&lsquo;s
-          commitment to nurturing artistic talent, both locally and on the
-          international stage.
+          writing and the literary arts. We&lsquo;re shining a light on
+          Qatar&lsquo;s vibrant spoken word scene and showcasing the
+          country&lsquo;s commitment to nurturing artistic talent, both locally
+          and on the international stage.
         </p>
         <h1 className="text-3xl h5-bold  py-4 ">Our Mission</h1>
 

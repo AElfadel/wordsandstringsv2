@@ -19,7 +19,7 @@ const Footer = () => {
           id="socials"
           className="flex gap-6 justify-center content-center items-center"
         >
-          <a href="https://www.x.com/wordsandstrings" target="_blank">
+          <a href="https://www.instagram.com/wordsandstrings" target="_blank">
             <Icons.instagram width={22} fill="#c0c0c0" className="p-1" />
           </a>
 

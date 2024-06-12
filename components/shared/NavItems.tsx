@@ -26,7 +26,7 @@ function NavItems({ display }: { display: boolean }) {
             key={link.route}
             className={`${
               isActive && "text-sky-500"
-            } flex-center p-medium-16 whitespace-nowrap hover:text-red-700 `}
+            } flex-center p-medium-16 whitespace-nowrap hover:text-sky-700 `}
           >
             <Link href={link.route}>{link.label}</Link>
           </li>
