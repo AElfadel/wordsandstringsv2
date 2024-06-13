@@ -29,6 +29,8 @@ import {
   SelectValue,
 } from "../ui/Select";
 
+import { Input } from "../ui/Input";
+
 async function onCheckout({
   event,
   userId,
@@ -56,11 +58,15 @@ export default function CheckoutButton({
   userId,
   ticketCheck,
   activeTickets,
+  ticketsControl,
 }: {
   event: IEvent;
   userId: string;
   ticketCheck: boolean;
   activeTickets: number;
+  ticketsControl: {
+    ticketsRegistration: boolean;
+  };
 }) {
   const hasEventFinished = new Date(event.endDateTime) < new Date();
   const ticketsLimit = event.numberOfTickets;
@@ -70,7 +76,6 @@ export default function CheckoutButton({
   const eventDate = formatDateTime(event.startDateTime).dateOnly;
   const eventstartTime = formatDateTime(event.startDateTime).timeOnly;
   const eventEndTime = formatDateTime(event.endDateTime).timeOnly;
-
   const eventSoldout = activeTickets >= ticketsLimit;
 
   return (
@@ -99,77 +104,105 @@ export default function CheckoutButton({
               </Link>
             ) : (
               <>
-                <AlertDialog>
-                  <AlertDialogTrigger>
-                    <Button
-                      className="font-bold text-xl  hover:text-white rounded-full h-[54px]   bg-white text-black   p-6 hover:bg-primary/60"
-                      size="lg"
-                    >
-                      GET TICKETS 🎟️
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent className="bg-white">
-                    <AlertDialogHeader>
-                      <AlertDialogTitle className="text-center ">
-                        <div className="flex flex-col">
-                          {event.title}
-                          <br />
-                          <p className="text-sm font-thin">
-                            {eventDate} {eventstartTime} - {eventEndTime}
-                          </p>
-                          <Separator />
-                        </div>
-                      </AlertDialogTitle>
-                      <AlertDialogDescription className="text-black flex justify-between">
-                        <div className="font-semibold">
-                          <p>GENERAL ADMISSION</p>
+                {ticketsControl ? (
+                  <AlertDialog>
+                    <AlertDialogTrigger>
+                      <Button
+                        className="font-bold text-xl  hover:text-white rounded-full h-[54px]   bg-white text-black   p-6 hover:bg-primary/60"
+                        size="lg"
+                      >
+                        GET TICKETS 🎟️
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent className="bg-white">
+                      <AlertDialogHeader>
+                        <AlertDialogTitle className="text-center ">
+                          <div className="flex flex-col">
+                            {event.title}
+                            <br />
+                            <p className="text-sm font-thin">
+                              {eventDate} {eventstartTime} - {eventEndTime}
+                            </p>
+                            <Separator />
+                          </div>
+                        </AlertDialogTitle>
+                        <AlertDialogDescription className="text-black flex flex-col gap-2 justify-between">
+                          <div className="flex ">
+                            <p className="font-semibold w-[190px] text-left text-sm items-center content-center ">
+                              Mobile Number
+                            </p>
+                            <Input
+                              placeholder="ex. 55123456"
+                              className=" flex-2  "
+                            />
+                          </div>
+
+                          <div className="flex">
+                            <p className="text-left text-sm font-semibold w-[190px] items-center content-center">
+                              GENERAL
+                              <br />
+                              ADMISSION
+                            </p>
+
+                            <Select value={value} onValueChange={setValue}>
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Tickets" />
+                              </SelectTrigger>
+                              <SelectContent className="">
+                                <SelectItem value="1">1 Ticket</SelectItem>
+                                <SelectItem value="2">2 Ticket</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
                           {event.price === "0" ? (
                             <p>FREE</p>
                           ) : (
-                            <p className="font-thin pr-2">
-                              {" "}
-                              Tickets are {event.price} QR each. Payment must be
-                              made in cash at the venue entrance.
+                            <p className="font-thin pr-2 text-right">
+                              Total Price:{" "}
+                              <span className="font-bold text-lg">
+                                {parseInt(value, 10) *
+                                  parseInt(event.price, 10)}{" "}
+                                QR total
+                              </span>{" "}
+                              <br />
+                              Payment must be made in cash at the venue
+                              entrance.
                             </p>
                           )}
-                        </div>
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
 
-                        <Select value={value} onValueChange={setValue}>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Tickets" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="1">1</SelectItem>
-                            <SelectItem value="2">2</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <form
-                      onSubmit={async (e) => {
-                        e.preventDefault();
-                        await onCheckout({ event, userId, value });
-                        toast({
-                          title: "Ticket booked successfully!",
-                          description:
-                            "Navigate to profile to view your ticket",
-                          variant: "success",
-                        });
-                        router.refresh();
-                      }}
-                      method="post"
-                    >
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction>
-                          <button type="submit" role="link">
-                            Book Ticket
-                          </button>
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </form>
-                  </AlertDialogContent>
-                </AlertDialog>
+                      <form
+                        onSubmit={async (e) => {
+                          e.preventDefault();
+                          await onCheckout({ event, userId, value });
+                          toast({
+                            title: "Ticket booked successfully!",
+                            description:
+                              "Navigate to profile to view your ticket",
+                            variant: "success",
+                          });
+                          router.refresh();
+                        }}
+                        method="post"
+                      >
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction>
+                            <button type="submit" role="link">
+                              Book Ticket
+                            </button>
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </form>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                ) : (
+                  <p className="text-center text-lg font-bold">
+                    Sorry, tickets <br />
+                    sold out!
+                  </p>
+                )}
               </>
             )}
           </SignedIn>

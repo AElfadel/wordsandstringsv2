@@ -240,17 +240,18 @@ export async function toggleTicketsRegistration(eventId: string) {
             throw new Error("Event does not exist");
         }
 
-        const toggleEventTicketsStatus = await Event.findByIdAndUpdate(
+        const updatedEvent = await Event.findByIdAndUpdate(
             eventId,
             { ticketsRegistration: !event.ticketsRegistration },
             { new: true } // This option returns the updated document
         );
 
-        if (!toggleEventTicketsStatus) {
+        if (!updatedEvent) {
             throw new Error("Failed to update event");
         }
 
-        return JSON.parse(JSON.stringify(toggleEventTicketsStatus));
+        return { ticketsRegistration: updatedEvent.ticketsRegistration };
+
 
     } catch(error) {
         console.log(error)

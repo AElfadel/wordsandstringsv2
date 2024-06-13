@@ -2,6 +2,7 @@ import {
   getRelatedEventsByCategory,
   getEventById,
   getActiveEvents,
+  eventTicketsStatus,
 } from "@/lib/actions/event.actions";
 import { formatDateTime } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
@@ -52,6 +53,8 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
   const totalOrders = await totalTickets(event._id);
 
   const activeTickets = parseInt(totalOrders, 10);
+
+  const ticketsControl = await eventTicketsStatus(event._id);
 
   return (
     <>
@@ -148,6 +151,7 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
                 event={event}
                 userId={userId}
                 ticketCheck={ticketCheck}
+                ticketsControl={ticketsControl?.eventTicketsState}
               />
 
               {perfomerCheck && performersRegistrationOpen ? null : (

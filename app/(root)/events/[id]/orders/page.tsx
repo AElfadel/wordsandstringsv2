@@ -1,5 +1,6 @@
 import Search from "@/components/shared/Search";
-import { Switch } from "@/components/ui/Switch";
+
+import ToggleTicketsStatus from "@/components/ui/ToggleTicketsStatus";
 import {
   eventTicketsStatus,
   toggleTicketsRegistration,
@@ -18,10 +19,12 @@ const Orders = async ({ searchParams, params }: SearchParamProps) => {
 
   const ticketSales = await totalTickets(eventId);
 
-  const eventStatus = (await eventTicketsStatus(eventId)) as boolean;
+  const eventStatus = await Object(eventTicketsStatus(eventId));
+
+  //TODO: ADRESS THIS ABOVE!
 
   return (
-    <>
+    <div>
       <Link
         href={`/events/${eventId}`}
         className="text-white rounded-full p-medium-16 h-[54px] bg-transparent hover:bg-none  justify-start w-full p-4"
@@ -29,17 +32,13 @@ const Orders = async ({ searchParams, params }: SearchParamProps) => {
         ← Return to event
       </Link>
 
-      <section className=" bg-wassecondary bg-dotted-pattern bg-cover bg-center py-5 md:py-10 flex  gap-2">
-        <h3 className="wrapper h3-bold text-center sm:text-left text-white  ">
-          Event Tickets
-        </h3>
-      </section>
+      <ToggleTicketsStatus eventStatus={eventStatus} eventId={eventId} />
 
       <section className="wrapper mt-2">
         <Search placeholder="Search buyer name..." />
       </section>
 
-      <p className="text-2xl  text-white text-right px-6">
+      <p className="text-2xl  text-white text-right px-6 md:pr-12">
         Total Sold Tickets: {ticketSales}
       </p>
 
@@ -60,7 +59,7 @@ const Orders = async ({ searchParams, params }: SearchParamProps) => {
             <tbody>
               {orders && orders.length === 0 ? (
                 <tr className="border-b text-black">
-                  <td colSpan={4} className="py-4 text-center text-black">
+                  <td colSpan={4} className="py-4 text-center  text-black">
                     No orders found.
                   </td>
                 </tr>
@@ -94,7 +93,7 @@ const Orders = async ({ searchParams, params }: SearchParamProps) => {
         {/* Mobile Cards */}
         <div className="md:hidden">
           {orders && orders.length === 0 ? (
-            <div className="py-4 text-center text-gray-500 ">
+            <div className="py-4 text-center text-black rounded-lg bg-white ">
               No orders found.
             </div>
           ) : (
@@ -126,7 +125,7 @@ const Orders = async ({ searchParams, params }: SearchParamProps) => {
           )}
         </div>
       </section>
-    </>
+    </div>
   );
 };
 
