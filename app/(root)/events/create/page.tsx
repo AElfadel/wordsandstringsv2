@@ -14,7 +14,7 @@ export default async function CreateEvent() {
       <section className="bg-black bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
         {viewCheck ? (
           <div className="wrapper my-8">
-            <h3 className="wrapper h3-bold text-white text-center sm:text-left">
+            <h3 className="wrapper h3-bold text-white text-left md:text-center ">
               Create Event
             </h3>
             <EventForm userId={userId} type="Create" />

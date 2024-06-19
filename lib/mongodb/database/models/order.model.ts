@@ -3,6 +3,8 @@ import { Schema, model, models, Document } from "mongoose";
 export interface IOrder extends Document {
     createdAt: Date,
     totalAmount: string,
+    
+    phoneNumber: String,
 
     buyer: {
         _id: string,
@@ -21,6 +23,7 @@ export type IOrderItem = {
     totalAmount: string
     createdAt: Date
     eventTitle: string
+    phoneNumber: String,
     eventId: string
     buyer: string
   }
@@ -43,6 +46,12 @@ const OderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
+
+    phoneNumber: {
+        type: String,
+        required: true,
+    },
+
 
 }, { strict: false })
 

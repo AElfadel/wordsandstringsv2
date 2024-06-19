@@ -35,10 +35,12 @@ async function onCheckout({
   event,
   userId,
   value,
+  phoneNumber,
 }: {
   event: IEvent;
   userId: string;
   value: string;
+  phoneNumber: string;
 }) {
   const amount = event.isFree ? "0" : event.price;
 
@@ -48,6 +50,7 @@ async function onCheckout({
     totalAmount: amount,
     createdAt: new Date(),
     ticketQuantity: value,
+    phoneNumber,
   };
 
   await createOrder(order);
@@ -73,6 +76,7 @@ export default function CheckoutButton({
   const { toast } = useToast();
   const router = useRouter();
   const [value, setValue] = useState("1");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const eventDate = formatDateTime(event.startDateTime).dateOnly;
   const eventstartTime = formatDateTime(event.startDateTime).timeOnly;
   const eventEndTime = formatDateTime(event.endDateTime).timeOnly;
@@ -87,17 +91,16 @@ export default function CheckoutButton({
           <SignedOut>
             <Button
               asChild
-              className="button rounded-full  p-4 bg-white text-black"
-              size="lg"
+              className="font-bold text-lg hover:text-white rounded-full h-[54px]   bg-white text-black   p-6 hover:bg-primary/60"
             >
-              <Link href="/sign-in">Get Tickets</Link>
+              <Link href="/sign-in"> GET TICKETS 🎟️</Link>
             </Button>
           </SignedOut>
 
           <SignedIn>
             {ticketCheck ? (
               <Link
-                className="inline-flex items-center justify-center whitespace-nowrap text-xl font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 sm:fit button px-4"
+                className="inline-flex items-center justify-center whitespace-nowrap text-lg font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 sm:fit button px-4"
                 href="/profile"
               >
                 View My Ticket 🎫
@@ -108,7 +111,7 @@ export default function CheckoutButton({
                   <AlertDialog>
                     <AlertDialogTrigger>
                       <Button
-                        className="font-bold text-xl  hover:text-white rounded-full h-[54px]   bg-white text-black   p-6 hover:bg-primary/60"
+                        className="font-bold text-lg  hover:text-white rounded-full h-[54px]   bg-white text-black   p-6 hover:bg-primary/60"
                         size="lg"
                       >
                         GET TICKETS 🎟️
@@ -133,7 +136,10 @@ export default function CheckoutButton({
                             </p>
                             <Input
                               placeholder="ex. 55123456"
+                              type="number"
                               className=" flex-2  "
+                              value={phoneNumber}
+                              onChange={(e) => setPhoneNumber(e.target.value)}
                             />
                           </div>
 
@@ -175,7 +181,13 @@ export default function CheckoutButton({
                       <form
                         onSubmit={async (e) => {
                           e.preventDefault();
-                          await onCheckout({ event, userId, value });
+
+                          await onCheckout({
+                            event,
+                            userId,
+                            value,
+                            phoneNumber,
+                          });
                           toast({
                             title: "Ticket booked successfully!",
                             description:

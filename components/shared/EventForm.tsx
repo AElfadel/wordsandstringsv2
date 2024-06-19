@@ -116,6 +116,10 @@ function EventForm({ userId, type, event, eventId }: EventFormProps) {
         });
 
         if (eventToUpdate) {
+          toast({
+            title: "✅  Event updated succesfully",
+            description: "You will be redirected to the event page",
+          });
           form.reset();
           router.push(`/events/${eventToUpdate._id}`);
         }

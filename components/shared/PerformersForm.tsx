@@ -63,26 +63,31 @@ function PerformersForm({ userId, eventId }: PerformerFormProps) {
       uploadedImageUrl = uploadedImages[0].url;
     }
 
-    try {
-      const newPerformer = await performerSignup({
-        performer: {
-          ...values,
-          imgUrl: uploadedImageUrl,
-        },
-        userId,
-        eventId,
+    const newPerformer = await performerSignup({
+      performer: {
+        ...values,
+        imgUrl: uploadedImageUrl,
+      },
+      userId,
+      eventId,
+    });
+    if (newPerformer) {
+      toast({
+        title: "Application to perform was registered",
+        description:
+          "You will be contacted by the organizers soon to confirm your participation",
+        variant: "success",
       });
-      if (newPerformer) {
-        toast({
-          title: "Application to perform was registered",
-          description:
-            "You will be contacted by the organizers soon to confirm your participation",
-        });
-        form.reset();
-        router.push(`/events/${eventId}`);
-      }
-    } catch (error) {
-      console.log(error);
+      form.reset();
+      router.push(`/events/${eventId}`);
+    }
+
+    if (!newPerformer) {
+      toast({
+        title: "Error Occured",
+        description: "Make sure you fill all the fields of the form",
+        variant: "destructive",
+      });
     }
   }
 
@@ -190,7 +195,7 @@ function PerformersForm({ userId, eventId }: PerformerFormProps) {
               <FormItem>
                 <FormLabel>Phone Number</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="ex. 55123456" />
+                  <Input {...field} placeholder="ex. 55123456" type="number" />
                 </FormControl>
 
                 <FormMessage />
@@ -309,7 +314,7 @@ function PerformersForm({ userId, eventId }: PerformerFormProps) {
             type="submit"
             size="lg"
             disabled={form.formState.isSubmitting}
-            className="button col-span-2"
+            className="button col-span-2 disabled:bg-neutral-700"
           >
             {form.formState.isSubmitting ? (
               <p className=" animate-pulse">Submitting..</p>
@@ -324,5 +329,3 @@ function PerformersForm({ userId, eventId }: PerformerFormProps) {
 }
 
 export default PerformersForm;
-
-//

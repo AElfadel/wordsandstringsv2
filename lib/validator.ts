@@ -32,8 +32,6 @@ export const eventFormSchema = z.object({
 
   export const performerFormSchema = z.object({
     
-    eventId: z.string(),
-
     performanceType: z.enum(['spoken word', 'musical performance']),
 
     fullName: z.string().min(3, "You name must be at least 3 characters"),

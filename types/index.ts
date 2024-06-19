@@ -122,10 +122,12 @@ export type CreateUserParams = {
 
   // ====== PERFORMER PARAMS
   export type performerSignupProps ={
-    userId: string
-    performer: {
+  performer: {
+
+  
       fullName: string
-   
+
+
       funFact: string
       
       imgUrl: string
@@ -133,17 +135,17 @@ export type CreateUserParams = {
       phoneNumber: string
   
       termsAgreement: boolean,
-  
-      eventId: string
-  
+    
       performanceDetails: string
   
       performanceType: "spoken word" | "musical performance"
   
       performanceLanguage: string
       soloOrGroup: "solo"  | "band"
-    }
-    eventId: string
+  }
+  eventId: string
+  userId: string
+
   }
   
   // ====== CATEGORY PARAMS
@@ -166,6 +168,7 @@ export type CreateUserParams = {
     totalAmount: string
     createdAt: Date
     ticketQuantity: string
+    phoneNumber: string
   }
   
   export type GetOrdersByEventParams = {

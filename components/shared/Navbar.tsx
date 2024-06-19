@@ -7,11 +7,7 @@ import NavItems from "./NavItems";
 import MobileNav from "./MobileNav";
 import { Icons } from "../ui/Icons";
 
-function Navbar() {
-  const { user } = useUser();
-  const userCheck = user?.emailAddresses[0].emailAddress as string;
-  const display = userCheck === process.env.NEXT_PUBLIC_CRE_CHECK;
-
+function Navbar({ display }: { display: boolean }) {
   return (
     <div className=" w-full px-2 py-2">
       <div className="flex    justify-between px-3">
@@ -23,7 +19,7 @@ function Navbar() {
           </p>
         </Link>
 
-        <nav className="md:flex-between hidden w-full max-w-xs ">
+        <nav className="md:flex-between hidden w-full max-w-xs  md:-ml-20">
           <NavItems display={display} />
         </nav>
 

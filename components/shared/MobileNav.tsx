@@ -63,13 +63,15 @@ export default function MobileNav({ display }: { display: boolean }) {
                     </li>
                     {display ? (
                       <>
-                        <li className="pt-4 text-xs"> Organizers control:</li>
-                        <li className="rounded-full text-sky-500  whitespace-nowrap font-bold  text-sm ">
+                        <li className="mt-4 p-2 text-xs bg-white rounded text-black  content-center items-center">
+                          Organizers control
+                        </li>
+                        <li className="rounded-full text-sky-500  whitespace-nowrap font-bold text-[20px] ">
                           <Link
                             href="/events/create"
                             className=" cursor-pointer"
                           >
-                            Create Event
+                            {">"} Create Event
                           </Link>
                         </li>
                       </>

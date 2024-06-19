@@ -17,12 +17,14 @@ import {
 import { auth } from "@clerk/nextjs/server";
 
 import RegisterToPerform from "@/components/shared/RegisterToPerform";
-import { SignIn, SignedIn, SignedOut } from "@clerk/nextjs";
+
 import { performerSignedUpAlready } from "@/lib/actions/performer.actions";
 import Link from "next/link";
 import { userPermissions } from "@/lib/actions/user.actions";
 import { IEvent } from "@/lib/mongodb/database/models/event.model";
 import { Button } from "@/components/ui/Button";
+import { Ticket, LayoutDashboard, MicVocal, Check } from "lucide-react";
+import PerformerCheck from "@/components/shared/PerformerCheck";
 
 async function page({ params: { id }, searchParams }: SearchParamProps) {
   const event = (await getEventById(id)) as IEvent;
@@ -38,7 +40,7 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
 
   const perfomerCheck = await performerSignedUpAlready({
     eventId: event._id,
-    userId: userId,
+    userId,
   });
 
   const performersRegistrationOpen = event?.performersReg;
@@ -85,18 +87,28 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
                 </div>
               </div>
               {SRE_CHECK && (
-                <div className=" p-medium-16 button flex gap-2">
+                <div className=" p-medium-16 button flex gap-2 content-center items-center">
+                  <LayoutDashboard className="h-6 w-6" />
+                  <p>Controls {">"}</p>
                   <Button
                     asChild
-                    className="rounded-full text-white h-[54px] p-semibold-20 w-full  sm:w-fit bg-blue-400 hover:bg-black"
+                    variant="admin"
+                    className=" bg-neutral-600 text-white"
                   >
-                    <Link href={`/events/${id}/orders`}>Tickets control</Link>
+                    <Link href={`/events/${id}/orders`}>
+                      {" "}
+                      <Ticket className="h-6 w-6 mr-1" /> Tickets Control
+                    </Link>
                   </Button>
                   <Button
                     asChild
-                    className="rounded-full text-white h-[54px] p-semibold-20 w-full  sm:w-fit bg-wassecondary hover:bg-wassecondary"
+                    variant="admin"
+                    className=" bg-neutral-600 text-white"
                   >
-                    <Link href={`/events/${id}/orders`}>Performers List</Link>
+                    <Link href={`/events/${id}/performers`}>
+                      <MicVocal className="h-6 w-6 mr-1" />
+                      Performers List
+                    </Link>
                   </Button>
                 </div>
               )}
@@ -153,18 +165,15 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
                 ticketCheck={ticketCheck}
                 ticketsControl={ticketsControl?.eventTicketsState}
               />
-
-              {perfomerCheck && performersRegistrationOpen ? null : (
-                <RegisterToPerform id={id} />
-              )}
-
-              {perfomerCheck && (
-                <div className="bg-slate-800 text-white rounded-md p-2 ">
-                  Application to
-                  <br /> perform sent
-                </div>
-              )}
             </div>
+            {performersRegistrationOpen ? (
+              <PerformerCheck id={id} perfomerAlreadyApplied={perfomerCheck} />
+            ) : (
+              <div className="bg-slate-800 text-white w-[120px] capitalize rounded-md p-2 text-center flex">
+                <Check className="w-6 h-6" />
+                <p> Performer registration is closed</p>{" "}
+              </div>
+            )}
           </div>
         </div>
       </section>

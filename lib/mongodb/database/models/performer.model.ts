@@ -5,22 +5,47 @@ export interface IPerfomer extends Document {
     username: string;
     firstName: string;
     lastName: string;
-    idScan_url: string;
+    imgUrl: string;
     PhoneNumber: string;
     termsAgreement: boolean;
-    event: Schema.Types.ObjectId;
     performanceType: 'spoken word' | 'musical performance';
-    soloOrGroup: 'solo' | 'band'
-    user: Schema.Types.ObjectId
-
+    soloOrGroup: 'solo' | 'band';
+    artist: {
+        _id: string,
+        firstName: string,
+        lastName: string
+    },
+    event: {
+        _id: string,
+        title: string,
+    },
+    performanceDetails: string;
+    performanceLanguage: string;
+    funFact: string;
 }
+
+
+export type IPerformerOne = {
+    _id: string
+    fullName: string
+    createdAt: Date
+    imgUrl: string
+    phoneNumber: String,
+    performanceType: 'spoken word' | 'musical performance',
+    performanceDetails: string,
+    performanceLanguage: string,
+    soloOrGroup: 'solo' | 'band';
+    email: string;
+    funFact: string;
+  }
+  
 
 const PerformerSchema = new Schema({
     createdAt: {
         type: Date, default: Date.now()
     },
-    email: { type: String, required: true, unique: true},
-    fullName: { type: String, required: true, unique: true},
+    email: { type: String, required: true},
+    fullName: { type: String, required: true},
     funFact: {type: String, required: true},
     imgUrl : {type: String, required: true},
     phoneNumber: { type: String, required:true},
@@ -31,23 +56,23 @@ enum: ['spoken word', 'musical performance'],
 required: true
     },
     performanceDetails: {type: String, required: true},
-    event: {type:Schema.Types.ObjectId, ref: "Event", required: true },
+    event: {type:Schema.Types.ObjectId, ref: "Event" },
     performanceLanguage: {type: String, required: true},
     soloOrGroup : {
         type: String,
         enum: ['solo', 'band'],
         required: true
             },
-            user:   {
+    artist:   {
                 type: Schema.Types.ObjectId,
                 ref: "User",
-                required: true
             },
 
 }, { strict: false })
 
 
-const Perfomer = models.Perfomer || model("Perfomer", PerformerSchema)
+const Performer = models.Performer || model("Performer", PerformerSchema);
 
 
-export default Perfomer;
+export default Performer;
+

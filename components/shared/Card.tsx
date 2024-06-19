@@ -88,20 +88,13 @@ function Card({ event, hasOrderLink }: CardProps) {
 
         {/*PERFORMERS REGISTRATION */}
         <div className="flex-between w-full ">
-          <a href={`/events/${event._id}`}>
-            <div className="p-medium-14 flex gap-1 text-gray-600  align-middle content-center text-center">
-              Performers Registration is
-              {performersRegistrationOpen ? (
-                <p>
-                  <span className="bg-wasprimary/20 text-wasprimary rounded-lg px-0.5 ">
-                    OPEN!
-                  </span>
-                </p>
-              ) : (
-                <p>FULL</p>
-              )}
-            </div>
-          </a>
+          {performersRegistrationOpen && !eventFinished ? (
+            <a href={`/events/${event._id}`}>
+              <div className="p-medium-14 flex gap-1 bg-wasprimary/20 text-sky-500 rounded-lg  align-middle content-center text-center px-1">
+                <p> Performers Registration is OPEN!</p>
+              </div>
+            </a>
+          ) : null}
 
           {hasOrderLink ? (
             <Link

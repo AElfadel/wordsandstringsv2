@@ -78,14 +78,14 @@ export default function ContactUs() {
   }
 
   return (
-    <div className="h-full mx-auto">
+    <div className=" mx-auto">
       <h1 className="text-4xl text-white font-bold text-center p-6">
         Contact Us
       </h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-[460px] py-6 text-white mb-12"
+          className="space-y-8 w-screen px-4 py-6 text-white mb-12"
         >
           <FormField
             control={form.control}

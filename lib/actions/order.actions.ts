@@ -23,7 +23,7 @@ export async function createOrder(order: CreateOrderParams) {
             const newOrder = Order.create({
                 ...order,
                 event: order.eventId,
-                buyer: order.buyerId
+                buyer: order.buyerId,
             })
 
             orders.push(newOrder)
