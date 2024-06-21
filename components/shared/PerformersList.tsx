@@ -9,10 +9,10 @@ export default async function PerformersList({ eventId }: { eventId: string }) {
   const performers = await getPerformers(eventId);
 
   return (
-    <div className="text-white">
+    <div className=" text-white md:wrapper">
       <h1 className="h2-bold p-2"> Performers List</h1>
       {/* Mobile Cards */}
-      <div className="md:wrapper py-4">
+      <div className=" py-4">
         {performers && performers.length === 0 ? (
           <div className="py-4 text-center text-black rounded-lg bg-white ">
             No Performers registered.
@@ -34,9 +34,13 @@ export default async function PerformersList({ eventId }: { eventId: string }) {
                   {performer.performanceType}
                 </div>
                 <div className=" text-lg flex font-semibold gap-2">
-                  <p> {performer.fullName}</p>-
-                  <p className="bg-black text-white rounded-md px-2">
-                    {performer.soloOrGroup}
+                  <p>
+                    {" "}
+                    {performer.fullName}
+                    <br />
+                    <span className="bg-black text-white rounded-md px-2">
+                      {performer.soloOrGroup}
+                    </span>
                   </p>
                 </div>
 

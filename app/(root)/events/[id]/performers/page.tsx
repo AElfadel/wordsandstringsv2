@@ -36,7 +36,7 @@ async function Performers({
         <PerformersList eventId={eventId} />
       ) : (
         <div>
-          <p>404 Unauthorized</p>
+          <p className="text-white text-xl">404 Unauthorized</p>
         </div>
       )}
     </div>

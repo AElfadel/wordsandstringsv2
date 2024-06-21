@@ -4,7 +4,7 @@ import React from "react";
 
 async function page() {
   return (
-    <section className="pt-4 antialiased">
+    <section className="pt-4 antialiased wrapper">
       <div className="pl-6 pr-4 w-full text-white">
         <h1 className="text-3xl h5-bold  py-4 "> About Words & Strings</h1>
         <Separator />
@@ -12,14 +12,15 @@ async function page() {
 
       <Image
         src="/stage3.jpeg"
-        className="pt-4"
+        className="pt-4 mx-auto"
         alt="Words & Strings event held in Georgetown University Qatar."
         width={1048}
         height={680}
       />
-      <p className="text-xs text-right text-neutral-400 italic p-2">
-        Words & Strings event held in Georgetown University Qatar. Photo by
-        Tariq Al Fatih, 2018
+      <p className="text-xs text-end  text-neutral-400 italic p-2 lg:text-center ">
+        Words & Strings event held in Georgetown University Qatar.
+        <br className="md:hidden" />
+        Photo by Tariq Al Fatih, 2018
       </p>
 
       {/* &apos;` */}

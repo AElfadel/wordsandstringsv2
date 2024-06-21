@@ -22,14 +22,11 @@ function RegisterToPerform({ id }: RegisterToPerformProps) {
       </SignedOut>
 
       <SignedIn>
-        <Button
-          asChild
-          className="button rounded-full  p-4 text-white"
-          size="lg"
-          variant="default"
-        >
-          <Link href={`/events/${id}/perform`}>Register to perfom 🎤</Link>
-        </Button>
+        <div className="button bg-wassecondary w-fit rounded-full font-bold   p-4 text-white -mt-3">
+          <Link href={`/events/${id}/perform`} className="font-bold text-lg ">
+            REGISTER TO PERFORM 🎤
+          </Link>
+        </div>
       </SignedIn>
     </div>
   );

@@ -4,7 +4,7 @@ import {
   getActiveEvents,
   eventTicketsStatus,
 } from "@/lib/actions/event.actions";
-import { formatDateTime } from "@/lib/utils";
+import { cn, formatDateTime } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
 import Image from "next/image";
 import { Icons } from "@/components/ui/Icons";
@@ -25,8 +25,26 @@ import { IEvent } from "@/lib/mongodb/database/models/event.model";
 import { Button } from "@/components/ui/Button";
 import { Ticket, LayoutDashboard, MicVocal, Check } from "lucide-react";
 import PerformerCheck from "@/components/shared/PerformerCheck";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/NavigationMenu";
+import { Wrench } from "lucide-react";
+import { Lock } from "lucide-react";
 
-async function page({ params: { id }, searchParams }: SearchParamProps) {
+import React from "react";
+
+export default async function page({
+  params: { id },
+  searchParams,
+}: SearchParamProps) {
   const event = (await getEventById(id)) as IEvent;
 
   const { sessionClaims } = auth();
@@ -87,30 +105,76 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
                 </div>
               </div>
               {SRE_CHECK && (
-                <div className=" p-medium-16 button flex gap-2 content-center items-center">
-                  <LayoutDashboard className="h-6 w-6" />
-                  <p>Controls {">"}</p>
-                  <Button
-                    asChild
-                    variant="admin"
-                    className=" bg-neutral-600 text-white"
-                  >
-                    <Link href={`/events/${id}/orders`}>
-                      {" "}
-                      <Ticket className="h-6 w-6 mr-1" /> Tickets Control
-                    </Link>
-                  </Button>
-                  <Button
-                    asChild
-                    variant="admin"
-                    className=" bg-neutral-600 text-white"
-                  >
-                    <Link href={`/events/${id}/performers`}>
-                      <MicVocal className="h-6 w-6 mr-1" />
-                      Performers List
-                    </Link>
-                  </Button>
-                </div>
+                <NavigationMenu>
+                  <NavigationMenuList>
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger
+                        className="flex gap-2 bg-white text-black text-lg
+ font-bold"
+                      >
+                        <LayoutDashboard className="h-6 w-6" />
+                        Event Controls
+                      </NavigationMenuTrigger>
+
+                      <NavigationMenuContent>
+                        <ul className="grid  gap-3 p-6 w-full md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                          <ListItem href={`${id}/update`}>
+                            <div className="text-sm flex gap-1 font-medium leading-none text-black items-center">
+                              <Wrench />
+                              Edit
+                            </div>
+                            Edit the event information
+                          </ListItem>
+
+                          <ListItem href={`${id}/orders`}>
+                            <div className="text-sm flex gap-1 font-medium leading-none text-black items-center">
+                              <Ticket className="h-6 w-6" />
+                              Tickets
+                            </div>
+                            View booked tickets and open/close tickets
+                            availability
+                          </ListItem>
+                          <ListItem href={`${id}/performers`}>
+                            <div className="text-sm flex gap-1 font-medium leading-none text-black items-center">
+                              <MicVocal className="h-6 w-6 mr-1" />
+                              Peformers
+                            </div>
+                            View perfomers and open/close registration
+                          </ListItem>
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  </NavigationMenuList>
+                </NavigationMenu>
+                // <div className=" p-medium-16 button flex flex-col gap-2  items-start">
+                //   <div className="flex gap-2 content-center items-center">
+                //     {" "}
+                //     <LayoutDashboard className="h-6 w-6" />
+                //     <p>Event Controls {"V"}</p>
+                //   </div>
+                //   <div className="flex gap-2">
+                //     <Button
+                //       asChild
+                //       variant="admin"
+                //       className=" bg-neutral-600 text-white"
+                //     >
+                //       <Link href={`/events/${id}/orders`}>
+                //         {" "}
+                //         <Ticket className="h-6 w-6 mr-1" /> Tickets Control
+                //       </Link>
+                //     </Button>
+                //     <Button
+                //       asChild
+                //       variant="admin"
+                //       className=" bg-neutral-600 text-white"
+                //     >
+                //       <Link href={`/events/${id}/performers`}>
+                //         <MicVocal className="h-6 w-6 mr-1" />
+                //         Performers List
+                //       </Link>
+                //     </Button>
+                //   </div>
+                // </div>
               )}
             </div>
 
@@ -169,9 +233,9 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
             {performersRegistrationOpen ? (
               <PerformerCheck id={id} perfomerAlreadyApplied={perfomerCheck} />
             ) : (
-              <div className="bg-slate-800 text-white w-[120px] capitalize rounded-md p-2 text-center flex">
-                <Check className="w-6 h-6" />
-                <p> Performer registration is closed</p>{" "}
+              <div className=" text-white capitalize font-bold text-lg rounded-md text-center flex gap-2">
+                <Lock className="w-6 h-6" />
+                <p> Performers registration is closed</p>{" "}
               </div>
             )}
           </div>
@@ -196,4 +260,27 @@ async function page({ params: { id }, searchParams }: SearchParamProps) {
   );
 }
 
-export default page;
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";

@@ -30,6 +30,7 @@ import {
 } from "../ui/Select";
 
 import { Input } from "../ui/Input";
+import { CheckCheck } from "lucide-react";
 
 async function onCheckout({
   event,
@@ -85,7 +86,10 @@ export default function CheckoutButton({
   return (
     <div className="flex items-center gap-3">
       {hasEventFinished || eventSoldout ? (
-        <p className="p-2 text-red-400">Event tickets sold out!</p>
+        <div className="flex  text-lg font-bold gap-2 items-center">
+          <CheckCheck className="w-6 h-6" />
+          <p className="p-2">Event tickets sold out!</p>
+        </div>
       ) : (
         <>
           <SignedOut>
