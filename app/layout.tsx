@@ -28,6 +28,7 @@ export default async function RootLayout({
       <body className={cn(poppins.variable, "bg-black")}>
         <Provider>
           <Toaster />
+
           {children}
         </Provider>
       </body>

@@ -55,7 +55,7 @@ function TicketDeleteConfirmation({
                   toast({
                     title: "Ticket cancelled successfully",
                     description: "Thank you for letting us know in advance!",
-                    variant: "destructive",
+                    variant: "success",
                   });
                   router.refresh();
                 } catch (error) {

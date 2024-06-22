@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const eventFormSchema = z.object({
     title: z.string().min(3, "Title must be at least 3 characters"),
-    description: z.string().min(3,  "Event description must be at least 3 characters").max(500, "Description must be less than 500 characters"),
+    description: z.string().min(3,  "Event description must be at least 3 characters").max(800, "Description must be less than 800 characters"),
     
     location: z.string().min(3, "Event description must be at least 3 characters").max(500, "location must be less than 500 characters"),
     
@@ -38,7 +38,7 @@ export const eventFormSchema = z.object({
 
     performanceDetails: z.string().min(3, "Performance details must be at least 3 characters"),
 
-    funFact: z.string().min(3, "Fun fact must be at least 3 characters").max(140, "Fun fact must be less than 140 characters"),
+    funFact: z.string().min(3, "Fun fact must be at least 3 characters").max(400, "Fun fact must be less than 400 characters"),
     
     email: z.string().min(4, "Email must be longer than 3 characters"),
 

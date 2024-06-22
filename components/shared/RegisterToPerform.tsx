@@ -11,14 +11,11 @@ function RegisterToPerform({ id }: RegisterToPerformProps) {
   return (
     <div className="-ml-2">
       <SignedOut>
-        <Button
-          asChild
-          className="button rounded-full texl-lg p-4 text-white"
-          size="lg"
-          variant="default"
-        >
-          <Link href="/sign-in">Perform 🎤</Link>
-        </Button>
+        <div className="button bg-wassecondary w-fit rounded-full font-bold   p-4 text-white -mt-3">
+          <Link className="font-bold text-lg " href="/sign-in">
+            REGISTER TO PERFORM 🎤
+          </Link>
+        </div>
       </SignedOut>
 
       <SignedIn>

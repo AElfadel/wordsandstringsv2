@@ -29,7 +29,7 @@ export default function FileUploader({
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: "image/*" ? generateClientDropzoneAccept(["image/*"]) : undefined,
-    maxSize: 2 * 1024 * 1024, // 2MB in bytes
+    maxSize: 4 * 1024 * 1024, // 2MB in bytes
     maxFiles: 1,
   });
 
@@ -60,7 +60,7 @@ export default function FileUploader({
           <h3 className="mb-2 mt-2">Drag event cover here</h3>
           <p className="p-medium-12 mb-4">1 Image</p>
           <p className="p-medium-12 mb-4">PNG, JPG, SVG Format </p>
-          <p className="p-medium-12 mb-4">Maximum size 2MB</p>
+          <p className="p-medium-12 mb-4">Maximum size 4MB</p>
 
           <Button type="button" className="rounded-full">
             Select from device

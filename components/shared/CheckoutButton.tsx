@@ -30,7 +30,7 @@ import {
 } from "../ui/Select";
 
 import { Input } from "../ui/Input";
-import { CheckCheck } from "lucide-react";
+import { CheckCheck, Flame } from "lucide-react";
 
 async function onCheckout({
   event,
@@ -77,11 +77,19 @@ export default function CheckoutButton({
   const { toast } = useToast();
   const router = useRouter();
   const [value, setValue] = useState("1");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const eventDate = formatDateTime(event.startDateTime).dateOnly;
   const eventstartTime = formatDateTime(event.startDateTime).timeOnly;
   const eventEndTime = formatDateTime(event.endDateTime).timeOnly;
   const eventSoldout = activeTickets >= ticketsLimit;
+  const freeEvent = event.price === "";
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const phoneNumber = e.target.value;
+    setPhoneNumber(phoneNumber);
+    setIsButtonDisabled(phoneNumber.length < 8);
+  };
 
   return (
     <div className="flex items-center gap-3">
@@ -95,7 +103,7 @@ export default function CheckoutButton({
           <SignedOut>
             <Button
               asChild
-              className="font-bold text-lg hover:text-white rounded-full h-[54px]   bg-white text-black   p-6 hover:bg-primary/60"
+              className="font-bold text-lg hover:text-white rounded-full h-[54px]   bg-white text-black   p-6 hover:bg-black/60"
             >
               <Link href="/sign-in"> GET TICKETS 🎟️</Link>
             </Button>
@@ -104,7 +112,7 @@ export default function CheckoutButton({
           <SignedIn>
             {ticketCheck ? (
               <Link
-                className="inline-flex items-center justify-center whitespace-nowrap text-lg font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 sm:fit button px-4"
+                className="rounded-2xl text-white antialiased bg-wassecondary text-2xl p-3 font-bold"
                 href="/profile"
               >
                 View My Ticket 🎫
@@ -143,7 +151,7 @@ export default function CheckoutButton({
                               type="number"
                               className=" flex-2  "
                               value={phoneNumber}
-                              onChange={(e) => setPhoneNumber(e.target.value)}
+                              onChange={handlePhoneNumberChange}
                             />
                           </div>
 
@@ -164,9 +172,7 @@ export default function CheckoutButton({
                               </SelectContent>
                             </Select>
                           </div>
-                          {event.price === "0" ? (
-                            <p>FREE</p>
-                          ) : (
+                          {event.price === "0" || " " ? null : (
                             <p className="font-thin pr-2 text-right">
                               Total Price:{" "}
                               <span className="font-bold text-lg">
@@ -194,8 +200,7 @@ export default function CheckoutButton({
                           });
                           toast({
                             title: "Ticket booked successfully!",
-                            description:
-                              "Navigate to profile to view your ticket",
+                            description: `Navigate to My Tickets section to view your ticket`,
                             variant: "success",
                           });
                           router.refresh();
@@ -204,7 +209,10 @@ export default function CheckoutButton({
                       >
                         <AlertDialogFooter>
                           <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction>
+                          <AlertDialogAction
+                            disabled={isButtonDisabled}
+                            className="disabled:bg-neutral-300 disabled:text-white"
+                          >
                             <button type="submit" role="link">
                               Book Ticket
                             </button>
@@ -214,10 +222,11 @@ export default function CheckoutButton({
                     </AlertDialogContent>
                   </AlertDialog>
                 ) : (
-                  <p className="text-center text-lg font-bold">
-                    Sorry, tickets <br />
-                    sold out!
-                  </p>
+                  <div className="flex gap-2 text-center text-lg font-bold">
+                    <Flame className="w-6 h-6" />
+
+                    <p className=""> Sorry, tickets sold out!</p>
+                  </div>
                 )}
               </>
             )}

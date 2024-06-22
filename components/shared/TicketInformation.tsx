@@ -64,7 +64,7 @@ export default function TicketInformation({
         <AlertDialogHeader>
           <AlertDialogTitle>Ticket Information</AlertDialogTitle>
           <AlertDialogDescription className="p-regular-16 text-grey-600">
-            <div className="bg-gray-50  outline-dashed outline-4 outline-gray-200">
+            <div className="bg-gray-50  outline-dashed outline-3 outline-neutral-300">
               <TicketBuyerInformation order={order} event={event} />
             </div>
           </AlertDialogDescription>

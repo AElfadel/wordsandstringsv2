@@ -6,6 +6,7 @@ import Order from "../mongodb/database/models/order.model";
 import User from "../mongodb/database/models/user.model";
 import Event from "../mongodb/database/models/event.model";
 import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
 
 
 
@@ -29,11 +30,20 @@ export async function createOrder(order: CreateOrderParams) {
             orders.push(newOrder)
         }
 
-        return JSON.parse(JSON.stringify(orders))
+        console.log(order)
+
+        return { success: true, orders: JSON.parse(JSON.stringify(orders)) };
         
 
     } catch(error) {
         console.log(error)
+
+        if (error instanceof mongoose.Error.ValidationError) {
+            const errorMessage = Object.values(error.errors).map(err => err.message).join(', ');
+            return { success: false, message: errorMessage };
+        }
+        return { success: false, message: 'An error occurred while creating the order.' };
+
     }
 
 }

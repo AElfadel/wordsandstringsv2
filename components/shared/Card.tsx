@@ -24,16 +24,16 @@ function Card({ event, hasOrderLink }: CardProps) {
   const performersRegistrationOpen = event.performersReg;
 
   return (
-    <div className="group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]">
+    <div
+      className={`group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl shadow-md transition-all hover:shadow-lg md:min-h-[438px] ${eventFinished ? " bg-gradient-to-b to-neutral-900 from-neutral-800 text-white" : "bg-white"}`}
+    >
       <Link
         href={`/events/${event._id}`}
         style={{
           backgroundImage: `url(${event.imageUrl})`,
-          filter: eventFinished ? "grayscale(100%)" : "none",
+          filter: eventFinished ? "grayscale(70%)" : "none",
         }}
-        className={`flex-center flex-grow bg-cover bg-center text-grey-500 ${
-          eventFinished ? "bg-gray-50" : ""
-        }`}
+        className={`flex-center flex-grow bg-cover bg-center text-grey-500`}
       />
       {/*IS EVENT CREATOR  ..?*/}
       {isEventCreator ? (
@@ -47,13 +47,15 @@ function Card({ event, hasOrderLink }: CardProps) {
 
       <div className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4">
         <div className="flex gap-2">
-          <span
-            className={`p-semibold-14 w-fit rounded-full bg-wassecondary px-4 py-1  line-clamp-1 ${
-              eventFinished ? "bg-gray-100 text-black" : "text-white"
-            }`}
-          >
-            {event.isFree ? "FREE" : `${event.price} QR`}
-          </span>
+          {eventFinished ? null : (
+            <span
+              className={`p-semibold-14 w-fit rounded-full bg-wassecondary px-4 py-1  line-clamp-1 ${
+                eventFinished ? "bg-gray-100 text-black" : "text-white"
+              }`}
+            >
+              {event.isFree ? "FREE" : `${event.price} QR`}
+            </span>
+          )}
           <p className="p-semibold-14  rounded-full bg-grey-500/10 px-4 py-1 text-grey-500 line-clamp-1 w-fit ">
             {event.category.name}
           </p>
@@ -61,11 +63,7 @@ function Card({ event, hasOrderLink }: CardProps) {
 
         {/* EVENT DATE OR EVENT Finished */}
 
-        {eventFinished ? (
-          <p className="p-medium-16 p-medium-18 text-red-800 ">
-            Event Finished 👏
-          </p>
-        ) : (
+        {eventFinished ? null : (
           <p
             className="p-medium-16 p-medium-18 text-gray-500 
      
@@ -76,15 +74,25 @@ function Card({ event, hasOrderLink }: CardProps) {
         )}
 
         <Link href={`/events/${event._id}`}>
-          <p className="p-bold-24  line-clamp-2 flex-1 text-black">
+          <p
+            className={`p-bold-24  line-clamp-2 flex-1 ${eventFinished ? "text-white" : "text-black"}`}
+          >
             {event.title}
           </p>
         </Link>
 
         {/*EVENT VENUE */}
-        <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">
+        <p
+          className={`p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black ${eventFinished ? "text-neutral-300 " : ""}`}
+        >
           {event.location}
         </p>
+
+        {eventFinished ? (
+          <p className=" text-wassecondary  font-bold">
+            Event Concluded on {formatDateTime(event.startDateTime).dateOnly}
+          </p>
+        ) : null}
 
         {/*PERFORMERS REGISTRATION */}
         <div className="flex-between w-full ">

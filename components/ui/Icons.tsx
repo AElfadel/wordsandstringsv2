@@ -229,12 +229,13 @@ export const Icons = {
       />
     </svg>
   ),
-  barCode: ({ width }: IconProps) => (
+  barCode: ({ width, className }: IconProps) => (
     <svg
       version="1.0"
       xmlns="http://www.w3.org/2000/svg"
       width={`${width}pt`}
       viewBox="0 0 600 300"
+      className={className}
     >
       <g
         transform="translate(0.000000,400.000000) scale(0.100000,-0.100000)"

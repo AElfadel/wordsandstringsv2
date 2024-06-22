@@ -1,8 +1,9 @@
 "use client";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import { ClerkProvider } from "@clerk/nextjs";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
+import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 
@@ -19,6 +20,12 @@ export default function Provider({ children }: { children: ReactNode }) {
         routerConfig={extractRouterConfig(ourFileRouter)}
       />
       {children}
+      <ProgressBar
+        color="#25c0fb"
+        height="2px"
+        options={{ showSpinner: false }}
+        shallowRouting
+      />
     </ClerkProvider>
   );
 }
